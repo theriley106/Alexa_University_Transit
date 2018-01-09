@@ -33,6 +33,14 @@ def extractLong(bounds):
 
 def extractLat(bounds):
 	return (bounds[0], bounds[2])
+
+def checkInBounds(latitude, longitude, bounds):
+	lat1, lat2 = extractLat(bounds)
+	long1, long2 = extractLong(bounds)
+	if (lat1 <= latitude <= lat2) and (long1 <= longitude <= long2):
+		return True
+	else:
+		return False
 	
 def getAllAgencyInfo():
 	headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
