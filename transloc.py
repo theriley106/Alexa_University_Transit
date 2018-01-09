@@ -16,4 +16,9 @@ def grabCurrentRoutes(busName):
 	res = requests.get('https://{}.transloc.com/m/feeds/index'.format(busName), headers=headers)
 	return re.findall('id="(\d+)', str(res.text))
 
-print grabCurrentRoutes('catbus')
+def getAnnouncementCount(busName):
+	headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+	res = requests.get('https://{}.transloc.com/m/feeds/announcements'.format(busName), headers=headers)
+	return re.findall('total="(\d+)', str(res.text))[0]
+
+print getAnnouncementCount('catbus')
