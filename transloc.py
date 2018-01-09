@@ -1,6 +1,8 @@
 import requests
 import bs4
 import re
+import geopy.distance
+
 
 
 
@@ -73,29 +75,56 @@ def convertBusNameToNumber(busName):
 		if val['name'] == busName:
 			return val['id']
 
+def getAllStops(busName):
+	headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+	return requests.get('https://feeds.transloc.com/3/stops?&agencies={}'.format(convertBusNameToNumber(busName)), headers=headers).json()['stops']
+
+def findNearestStop(latitude, longitude, busName):
+	lowestDistance = -1
+	closestStop = None
+	coords1 = (latitude, longitude)
+	for var in getAllStops(busName):
+		coords2 = (var['position'][0], var['position'][1])
+		distance = geopy.distance.vincenty(coords1, coords2).miles
+		if distance < lowestDistance or lowestDistance < 0:
+			lowestDistance = distance
+			closestStop = var
+	return closestStop
+
+	
 
 def findRoutesFromLatLong(latitude, longitude, busName=None):
+	listOfRoutes = []
 	if busName == None:
 		busName = findByLatLong(latitude, longitude)
 	headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 	res = requests.get('https://feeds.transloc.com/3/routes?agencies={}'.format(convertBusNameToNumber(busName)), headers=headers).json()
 	for val in res["routes"]:
-		if checkInBounds(latitude, longitude, val['bounds']) == True:
-			return val
+		try:
+			if checkInBounds(latitude, longitude, val['bounds']) == True:
+				if len(val['long_name']) > 1:
+					listOfRoutes.append(val)
+		except:
+			pass
+	return listOfRoutes
 
 
 def trackByRouteNumber(busName, routeNum):
 	headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 	res = requests.get("https://{}.transloc.com/m/route/{}#list".format(busName, routeNum), headers=headers)
 
-def getArrivalTimes(busName, routeNum):
+def getArrivalTimes(busName, routeNum, stopNum=None):
 	arrivalTimes = []
 	headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 	res = requests.get('https://{}.transloc.com/m/feeds/arrivals/route/{}'.format(busName, routeNum), headers=headers).text.split('stop')
 	for var in res:
 		info = extractArrivalsAndID(var)
 		if info != None:
-			arrivalTimes.append(info)
+			if stopNum == None:
+				arrivalTimes.append(info)
+			else:
+				if info['ID'] == str(stopNum):
+					arrivalTimes.append(info)
 	return arrivalTimes
 
 def findByLatLong(latitude, longitude):
@@ -153,10 +182,16 @@ if __name__ == "__main__":
 	#print returnInfoByName('yale')
 	#busSystem = 
 	#print 
-	var = findByLatLong(41.312529, -72.922985)
+	'''var = findByLatLong(41.312529, -72.922985)
 	print var
-	routes = findRoutesFromLatLong(41.312529, -72.922985)['id']
-	print routes
+	
 	stopDict = genStopDict(var, routes)
 	for var in getArrivalTimes(var, routes):
 		print("The Bus at {} will arrive in {} minutes".format(stopDict[str(var['ID'])]['Name'], str(var['Arrivals'])))
+	'''
+	routes = findRoutesFromLatLong(34.650511, -82.862395)
+
+	stopNum = findNearestStop(34.650511, -82.862395, 'catbus')['id']
+
+	for routeNum in routes:
+		print getArrivalTimes('catbus', routeNum['id'], stopNum)
