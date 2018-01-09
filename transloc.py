@@ -42,10 +42,28 @@ def checkInBounds(latitude, longitude, bounds):
 	else:
 		return False
 
+def convertBusNameToNumber(busName):
+	for val in getAllAgencyInfo():
+		if val['name'] == busName:
+			return val['id']
+
+
+def findRoutesFromLatLong(latitude, longitude, busName=None):
+	if busName == None:
+		busName = findByLatLong(latitude, longitude)
+	headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+	res = requests.get('https://feeds.transloc.com/3/routes?agencies={}'.format(convertBusNameToNumber(busName)), headers=headers).json()
+	for val in res["routes"]:
+		if checkInBounds(latitude, longitude, val['bounds']) == True:
+			return val
+
+
+
+
 def findByLatLong(latitude, longitude):
 	for busses in DATABASE:
 		if checkInBounds(latitude, longitude, busses['bounds']) == True:
-			return busses['long_name']
+			return busses['name']
 	
 def getAllAgencyInfo():
 	headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
@@ -78,4 +96,5 @@ def getAnnouncementCount(busName):
 if __name__ == "__main__":
 	DATABASE = getAllAgencyInfo()
 	#print returnInfoByName('yale')
-	print findByLatLong(34.654340, -82.858492)
+	#busSystem = findByLatLong(41.310726, -72.929916)
+	print findRoutesFromLatLong(41.310726, -72.929916)
