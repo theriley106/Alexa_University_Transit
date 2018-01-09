@@ -26,6 +26,13 @@ def extractNumLabel(string):
 		return (ID, label)
 	else:
 		return (None, None)
+
+def extractLong(bounds):
+	#longitude is usually negative
+	return (bounds[1], bounds[3])
+
+def extractLat(bounds):
+	return (bounds[0], bounds[2])
 	
 def getAllAgencyInfo():
 	headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
