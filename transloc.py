@@ -15,9 +15,8 @@ def grabAnnouncements(busName):
 
 def extractNumLabel(string):
 	#this will extract the bus number and label from a string
-	ID = re.findall('id="(\d+)', str(string))
-	if len(ID) != 0:
-		ID = ID[0]
+	ID = extractID(string)
+	if ID != None:
 		if len(ID) > 2:
 			try:
 				label = re.findall('label="(.*?)"', str(string))[0]
@@ -26,6 +25,33 @@ def extractNumLabel(string):
 		return (ID, label)
 	else:
 		return (None, None)
+
+def extractID(string):
+	ID = re.findall('id="(\d+)', str(string))
+	if len(ID) != 0:
+		return ID[0]
+	else:
+		return None
+
+def extractArrivalFromString(string):
+	arrivals = re.findall('arrivals="(.*?)"', str(string))
+	if len(arrivals) != 0:
+		arrivals = arrivals[0]
+	else:
+		return None
+
+def extractArrivalsAndID(string):
+	ID = extractID(string)
+	if ID != None:
+		arrivals = re.findall('arrivals="(.*?)"', str(string))[0]
+		if arrivals != None:
+			return {"ID": ID, "Arrivals": arrivals}
+		else:
+			return None
+	else:
+		return None
+
+
 
 def extractLong(bounds):
 	#longitude is usually negative
@@ -58,7 +84,17 @@ def findRoutesFromLatLong(latitude, longitude, busName=None):
 			return val
 
 
+def trackByRouteNumber(busName, routeNum):
+	headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+	res = requests.get("https://{}.transloc.com/m/route/{}#list".format(busName, routeNum), headers=headers)
 
+def getArrivalTimes(busName, routeNum):
+	arrivalTimes = []
+	headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+	res = requests.get('https://{}.transloc.com/m/feeds/arrivals/route/{}'.format(busName, routeNum), headers=headers).text.split('stop')
+	for var in res:
+		arrivalTimes.append(extractArrivalsAndID(var))
+	return arrivalTimes
 
 def findByLatLong(latitude, longitude):
 	for busses in DATABASE:
@@ -97,4 +133,5 @@ if __name__ == "__main__":
 	DATABASE = getAllAgencyInfo()
 	#print returnInfoByName('yale')
 	#busSystem = findByLatLong(41.310726, -72.929916)
-	print findRoutesFromLatLong(41.310726, -72.929916)
+	#print findRoutesFromLatLong(41.310726, -72.929916)
+	print getArrivalTimes('catbus', '4008302')
