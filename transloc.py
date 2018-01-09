@@ -41,6 +41,11 @@ def checkInBounds(latitude, longitude, bounds):
 		return True
 	else:
 		return False
+
+def findByLatLong(latitude, longitude):
+	for busses in DATABASE:
+		if checkInBounds(latitude, longitude, busses['bounds']) == True:
+			return busses['long_name']
 	
 def getAllAgencyInfo():
 	headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
@@ -72,4 +77,5 @@ def getAnnouncementCount(busName):
 
 if __name__ == "__main__":
 	DATABASE = getAllAgencyInfo()
-	print returnInfoByName('yale')
+	#print returnInfoByName('yale')
+	print findByLatLong(34.654340, -82.858492)
