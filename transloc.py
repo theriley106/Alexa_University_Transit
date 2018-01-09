@@ -45,7 +45,7 @@ def extractArrivalsAndID(string):
 	if ID != None:
 		arrivals = re.findall('arrivals="(.*?)"', str(string))[0]
 		if arrivals != None:
-			return {"ID": ID, "Arrivals": arrivals}
+			return {"ID": ID, "Arrivals": re.findall('\d+', str(arrivals))}
 		else:
 			return None
 	else:
@@ -93,7 +93,9 @@ def getArrivalTimes(busName, routeNum):
 	headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 	res = requests.get('https://{}.transloc.com/m/feeds/arrivals/route/{}'.format(busName, routeNum), headers=headers).text.split('stop')
 	for var in res:
-		arrivalTimes.append(extractArrivalsAndID(var))
+		info = extractArrivalsAndID(var)
+		if info != None:
+			arrivalTimes.append(info)
 	return arrivalTimes
 
 def findByLatLong(latitude, longitude):
@@ -126,12 +128,35 @@ def getAnnouncementCount(busName):
 	res = requests.get('https://{}.transloc.com/m/feeds/announcements'.format(busName), headers=headers)
 	return re.findall('total="(\d+)', str(res.text))[0]
 
+def extractXMLElem(string, element):
+	try:
+		return re.findall('{}="(.*?)"'.format(element), string)[0]
+	except Exception as exp:
+		return None
+
+def genStopDict(busName, routeNum):
+	information = {}
+	headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+	print 'https://{}.transloc.com/m/feeds/stops/{}'.format(busName, routeNum)
+	res = requests.get('https://{}.transloc.com/m/feeds/stops/{}'.format(busName, routeNum)).text.split('<stop')
+	for var in res:
+		ID = extractXMLElem(var, 'id')
+		if ID != None:
+			information[ID] = {"Name": extractXMLElem(var, 'name'), "Code": extractXMLElem(var, 'code')}
+		#print ID
+	return information
 
 
 
 if __name__ == "__main__":
 	DATABASE = getAllAgencyInfo()
 	#print returnInfoByName('yale')
-	#busSystem = findByLatLong(41.310726, -72.929916)
-	#print findRoutesFromLatLong(41.310726, -72.929916)
-	print getArrivalTimes('catbus', '4008302')
+	#busSystem = 
+	#print 
+	var = findByLatLong(41.312529, -72.922985)
+	print var
+	routes = findRoutesFromLatLong(41.312529, -72.922985)['id']
+	print routes
+	stopDict = genStopDict(var, routes)
+	for var in getArrivalTimes(var, routes):
+		print("The Bus at {} will arrive in {} minutes".format(stopDict[str(var['ID'])]['Name'], str(var['Arrivals'])))
