@@ -65,11 +65,15 @@ class track(object):
 	def returnClosestStopsNames(self, n=5):
 		return self.listOfStops[:n]
 
+	def returnStopCodeFromStopName(self, stopName):
+		for var in self.allStops
+
+
 	def findClosestStop(self):
 		lowestDistance = -1
 		closestStop = None
 		coords1 = (self.latitude, self.longitude)
-		for var in self.findAllStops():
+		for var in self.stopDatabase():
 			coords2 = (var['position'][0], var['position'][1])
 			self.listOfStops.append({"Data": var, "Name": var['name'], "Distance": geopy.distance.vincenty(coords1, coords2).miles})
 		self.listOfStops = sorted(self.listOfStops, key=lambda k: k['Distance']) 
