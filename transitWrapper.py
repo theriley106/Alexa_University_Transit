@@ -109,7 +109,7 @@ class track(object):
 	def checkIfRouteActive(self, routeName):
 		for var in self.listOfRoutes:
 			if var['long_name'] == routeName:
-				if 'false' in str(var['is_active']):
+				if 'false' in str(var['is_active']).lower():
 					return False
 				else:
 					return True
@@ -117,8 +117,8 @@ class track(object):
 	def returnAllActiveRoutes(self):
 		activeRoutes = []
 		for var in self.listOfRoutes:
-			if 'true' in str(var['is_active']):
-				activeRoutes.append(var['name'])
+			if 'true' in str(var['is_active']).lower():
+				activeRoutes.append(var['long_name'])
 		return activeRoutes
 
 	def findClosestStop(self):
