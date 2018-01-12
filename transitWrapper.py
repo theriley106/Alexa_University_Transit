@@ -14,6 +14,7 @@ class track(object):
 	def __init__(self, latitude, longitude, routeName=None, busName=None, stopName=None):
 		self.longitude = longitude
 		self.latitude = latitude
+		self.listOfStops = []
 		self.agencyInfo = getAllAgencyInfo()
 		self.busName = busName
 		if self.busName == None:
@@ -61,17 +62,18 @@ class track(object):
 				information[ID] = {"Name": extractXMLElem(var, 'name'), "Code": extractXMLElem(var, 'code')}
 		return information
 
+	def returnClosestStopsNames(self, n=5):
+		return self.listOfStops[:n]
+
 	def findClosestStop(self):
 		lowestDistance = -1
 		closestStop = None
 		coords1 = (self.latitude, self.longitude)
 		for var in self.findAllStops():
 			coords2 = (var['position'][0], var['position'][1])
-			distance = geopy.distance.vincenty(coords1, coords2).miles
-			if distance < lowestDistance or lowestDistance < 0:
-				lowestDistance = distance
-				closestStop = var
-		return closestStop
+			self.listOfStops.append({"Data": var, "Name": var['name'], "Distance": geopy.distance.vincenty(coords1, coords2).miles})
+		self.listOfStops = sorted(self.listOfStops, key=lambda k: k['Distance']) 
+		return self.listOfStops[0]['Data']
 
 	def findRoutesFromLatLong(self):
 		res = requests.get('https://feeds.transloc.com/3/routes?agencies={}'.format(self.busNumber), headers=headers).json()
@@ -153,4 +155,6 @@ def extractArrivalsAndID(string):
 		return None
 
 if __name__ == "__main__":
-	a = track(41.312529, -72.922985)
+	CLEMSON_LAT, CLEMSON_LONG = 34.654340, -82.858492
+	YALE_LAT, YALE_LONG = 41.312529, -72.922985
+	a = track(CLEMSON_LAT, CLEMSON_LONG)
