@@ -66,7 +66,34 @@ class track(object):
 		return self.listOfStops[:n]
 
 	def returnStopCodeFromStopName(self, stopName):
-		for var in self.allStops
+		for var in self.allStops:
+			if var['name'] == stopName:
+				return var['code']
+
+	def returnStopIDFromStopName(self, stopName):
+		for var in self.allStops:
+			if var['name'] == stopName:
+				return var['id']
+
+	def returnStopNameFromID(self, stopID):
+		for var in self.allStops:
+			if var['id'] == stopID:
+				return var['name']
+
+	def returnStopCodeFromID(self, stopID):
+		for var in self.allStops:
+			if var['id'] == stopID:
+				return var['code']
+
+	def returnStopNameFromCode(self, stopCode):
+		for var in self.allStops:
+			if var['code'] == stopCode:
+				return var['name']
+
+	def returnStopIDFromCode(self, stopCode):
+		for var in self.allStops:
+			if var['code'] == stopCode:
+				return var['id']
 
 
 	def findClosestStop(self):
