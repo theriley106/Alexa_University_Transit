@@ -100,9 +100,9 @@ def on_intent(intent_request, session, deviceID=None, apiKEY=None):
 		activeRoutes = a.returnNearbyActiveRoutes()
 		for i, val in enumerate(activeRoutes):
 			if i == len(activeRoutes) - 1 and len(activeRoutes) > 1:
-				routesNearMe.append("and " + ' '.join(re.findall('(\w+)', str(val['long_name']))))
+				routesNearMe.append("and " + val['long_name'])
 			else:
-				routesNearMe.append(' '.join(re.findall('(\w+)', str(val['long_name']))))
+				routesNearMe.append(val['long_name'])
 		if len(activeRoutes) > 1:
 			text = 'There are {} busses running near your location.  {}'.format(len(routesNearMe), ' '.join(routesNearMe))
 		else:
