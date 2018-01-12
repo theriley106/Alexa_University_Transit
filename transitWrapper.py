@@ -94,6 +94,13 @@ class track(object):
 			if var['code'] == stopCode:
 				return var['id']
 
+	def checkIfRouteActive(self, routeName):
+		for var in self.listOfRoutes:
+			if var['long_name'] == routeName:
+				if 'false' in str(var['is_active']):
+					return False
+				else:
+					return True
 
 	def findClosestStop(self):
 		lowestDistance = -1
