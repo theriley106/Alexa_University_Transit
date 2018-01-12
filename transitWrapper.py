@@ -21,6 +21,9 @@ class track(object):
 			self.busName = self.findBusName()
 		self.busNumber = convertBusNameToNumber(self.busName)
 		self.listOfRoutes = self.findRoutesFromLatLong()
+		self.nearbyRoutes = self.findNearbyRoutes()
+		
+		self.activeRoutes = self.returnAllActiveRoutes()
 		#the idea is that you pick one of these routes...
 		self.routeNumber = self.chooseRoute()
 		self.stopDatabase = self.findAllStops()
@@ -32,6 +35,10 @@ class track(object):
 		self.notificationMessages = []
 		self.checkForNewAnnouncements()
 		print self.getArrivalTimes()
+
+	def downloadDatabase(self):
+		#this is going to set up every value per session
+		pass
 
 	def checkForNewAnnouncements(self):
 		res = requests.get('https://{}.transloc.com/m/feeds/announcements'.format(self.busName), headers=headers)
@@ -107,11 +114,18 @@ class track(object):
 				else:
 					return True
 
+	def returnAllActiveRoutes(self):
+		activeRoutes = []
+		for var in self.listOfRoutes:
+			if 'true' in str(var['is_active']):
+				activeRoutes.append(var['name'])
+		return activeRoutes
+
 	def findClosestStop(self):
 		lowestDistance = -1
 		closestStop = None
 		coords1 = (self.latitude, self.longitude)
-		for var in self.stopDatabase():
+		for var in self.stopDatabase:
 			coords2 = (var['position'][0], var['position'][1])
 			self.listOfStops.append({"Data": var, "Name": var['name'], "Distance": geopy.distance.vincenty(coords1, coords2).miles})
 		self.listOfStops = sorted(self.listOfStops, key=lambda k: k['Distance']) 
@@ -122,12 +136,22 @@ class track(object):
 		res = requests.get('https://feeds.transloc.com/3/routes?agencies={}'.format(self.busNumber), headers=headers).json()
 		for val in res["routes"]:
 			try:
-				if checkInBounds(self.latitude, self.longitude, val['bounds']) == True:
-					if len(val['long_name']) > 1:
-						listOfRoutes.append(val)
+				if len(val['long_name']) > 1:
+					listOfRoutes.append(val)
 			except:
 				pass
 		return listOfRoutes
+
+	def findNearbyRoutes(self):
+		routeList = []
+		for val in self.listOfRoutes:
+			try:
+				if len(val['long_name']) > 1:
+					if checkInBounds(self.latitude, self.longitude, val['bounds']) == True:
+						routeList.append(val)
+			except:
+				pass
+		return routeList
 
 	def chooseRoute(self):
 		for i, route in enumerate(self.listOfRoutes):
@@ -202,3 +226,5 @@ if __name__ == "__main__":
 	CLEMSON_LAT, CLEMSON_LONG = 34.654340, -82.858492
 	YALE_LAT, YALE_LONG = 41.312529, -72.922985
 	a = track(CLEMSON_LAT, CLEMSON_LONG)
+	for var in a.activeRoutes:
+		print var
