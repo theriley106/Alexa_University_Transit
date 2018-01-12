@@ -94,6 +94,11 @@ class track(object):
 			if var['code'] == stopCode:
 				return var['id']
 
+	def returnRouteIDFromName(self, routeName):
+		for var in self.listOfRoutes:
+			if var['long_name'] == routeName:
+				return var['id']
+
 	def checkIfRouteActive(self, routeName):
 		for var in self.listOfRoutes:
 			if var['long_name'] == routeName:
