@@ -99,7 +99,7 @@ def on_intent(intent_request, session, deviceID=None, apiKEY=None):
 		vv = []
 		f = a.returnNearbyActiveRoutes()
 		for val in f:
-			vv.append(f['long_name'])
+			vv.append(val['long_name'])
 		text = 'the following busses near you are running ' + ' '.join(vv)
 		return {
 				"version": "1.0",
