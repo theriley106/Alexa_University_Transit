@@ -20,8 +20,7 @@ class track(object):
 		if self.busName == None:
 			self.busName = self.findBusName()
 		self.busNumber = convertBusNameToNumber(self.busName)
-		self.listOfRoutes = []
-		self.findRoutesFromLatLong()
+		self.listOfRoutes = self.findRoutesFromLatLong()
 		#the idea is that you pick one of these routes...
 		self.routeNumber = self.chooseRoute()
 		self.stopDatabase = self.findAllStops()
@@ -107,14 +106,16 @@ class track(object):
 		return self.listOfStops[0]['Data']
 
 	def findRoutesFromLatLong(self):
+		listOfRoutes = []
 		res = requests.get('https://feeds.transloc.com/3/routes?agencies={}'.format(self.busNumber), headers=headers).json()
 		for val in res["routes"]:
 			try:
 				if checkInBounds(self.latitude, self.longitude, val['bounds']) == True:
 					if len(val['long_name']) > 1:
-						self.listOfRoutes.append(val)
+						listOfRoutes.append(val)
 			except:
 				pass
+		return listOfRoutes
 
 	def chooseRoute(self):
 		for i, route in enumerate(self.listOfRoutes):
@@ -124,7 +125,7 @@ class track(object):
 
 	def getArrivalTimes(self):
 		arrivalTimes = []
-		print 'https://{}.transloc.com/m/feeds/arrivals/route/{}'.format(self.busName, self.routeNumber)
+		#print 'https://{}.transloc.com/m/feeds/arrivals/route/{}'.format(self.busName, self.routeNumber)
 		res = requests.get('https://{}.transloc.com/m/feeds/arrivals/route/{}'.format(self.busName, self.routeNumber), headers=headers).text.split('stop')
 		for var in res:
 			info = extractArrivalsAndID(var)
