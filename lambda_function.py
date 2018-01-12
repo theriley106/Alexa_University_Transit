@@ -96,7 +96,11 @@ def on_intent(intent_request, session, deviceID=None, apiKEY=None):
 			print exp
 			myAddress = None
 		a = transitWrapper.track(myAddress[0], myAddress[1])
-		text = 'the following busses near you are running ' + ' '.join(a.returnNearbyActiveRoutes())
+		vv = []
+		f = a.returnNearbyActiveRoutes()
+		for val in f:
+			vv.append(f['long_name'])
+		text = 'the following busses near you are running ' + ' '.join(vv)
 		return {
 				"version": "1.0",
 				"sessionAttributes": {},
