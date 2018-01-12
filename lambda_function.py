@@ -96,11 +96,17 @@ def on_intent(intent_request, session, deviceID=None, apiKEY=None):
 			print exp
 			myAddress = None
 		a = transitWrapper.track(myAddress[0], myAddress[1])
-		vv = []
-		f = a.returnNearbyActiveRoutes()
-		for val in f:
-			vv.append(val['long_name'])
-		text = 'the following busses near you are running ' + ' '.join(vv)
+		routesNearMe = []
+		activeRoutes = a.returnNearbyActiveRoutes()
+		for i, val in enumerate(activeRoutes):
+			if i == len(activeRoutes) - 1 and len(activeRoutes) > 1:
+				routesNearMe.append("and " + val['long_name'])
+			else:
+				routesNearMe.append(val['long_name'])
+		if len(activeRoutes) > 1:
+			text = 'There are {} busses running near your location.  {}'.format(len(routesNearMe), ' '.join(routesNearMe))
+		else:
+			text = 'There is 1 bus running near your location.  The route is entitled {}'.format(routesNearMe[0])
 		return {
 				"version": "1.0",
 				"sessionAttributes": {},
@@ -140,8 +146,7 @@ def get_help_response():
 def get_welcome_response():
 	session_attributes = {}
 	card_title = "Rubik's Cube Scramble Generator"
-	speech_output = "Welcome to the Rubiks Cube Scramble Generator Amazon Alexa Skill," \
-					"I can generate Rubiks Cube scrambles that coincide with WCA regulations."
+	speech_output = "Bus Tracker Dev Environment"
 	reprompt_text = "Please ask me to generate a scramble.  You can also ask about the Developer of this application"
 	should_end_session = False
 	return build_response(session_attributes, build_speechlet_response(
