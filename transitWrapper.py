@@ -5,7 +5,7 @@ import json
 import bs4
 import geopy.distance
 import random
-
+import time
 
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 
@@ -39,6 +39,14 @@ class track(object):
 	def downloadDatabase(self):
 		#this is going to set up every value per session
 		pass
+
+	def returnNearbyActiveRoutes(self):
+		activeRoutes = []
+		for var in self.nearbyRoutes:
+			if var in self.activeRoutes:
+				activeRoutes.append(var)
+		return activeRoutes
+
 
 	def checkForNewAnnouncements(self):
 		res = requests.get('https://{}.transloc.com/m/feeds/announcements'.format(self.busName), headers=headers)
@@ -118,7 +126,7 @@ class track(object):
 		activeRoutes = []
 		for var in self.listOfRoutes:
 			if 'true' in str(var['is_active']).lower():
-				activeRoutes.append(var['long_name'])
+				activeRoutes.append(var)
 		return activeRoutes
 
 	def findClosestStop(self):
@@ -153,11 +161,11 @@ class track(object):
 				pass
 		return routeList
 
-	def chooseRoute(self):
+	def chooseRoute(self, n=1):
 		for i, route in enumerate(self.listOfRoutes):
 			i = i + 1
 			print("{} - {}".format(i, route['long_name']))
-		return self.listOfRoutes[int(raw_input("Select Route: ")) - 1]['id']
+		return self.listOfRoutes[n]['id']
 
 	def getArrivalTimes(self):
 		arrivalTimes = []
@@ -223,8 +231,11 @@ def extractArrivalsAndID(string):
 		return None
 
 if __name__ == "__main__":
+	start = time.time()
 	CLEMSON_LAT, CLEMSON_LONG = 34.654340, -82.858492
 	YALE_LAT, YALE_LONG = 41.312529, -72.922985
 	a = track(CLEMSON_LAT, CLEMSON_LONG)
-	for var in a.activeRoutes:
+	for var in a.returnNearbyActiveRoutes():
 		print var
+	end = time.time()
+	print(end - start)
