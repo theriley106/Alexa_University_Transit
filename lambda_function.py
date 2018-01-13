@@ -14,8 +14,15 @@ def convertLatLong(address):
 
 
 def lambda_handler(event, context):
-	deviceID = event["context"]["System"]['device']['deviceId']
-	key = event["context"]["System"]['apiAccessToken']
+	try:
+		deviceID = event["context"]["System"]['device']['deviceId']
+	except:
+		deviceID = "Test"
+	try:	
+		key = event["context"]["System"]['apiAccessToken']
+	except:
+		key = ""
+		deviceID = "Test"
 	if event["request"]["type"] == "LaunchRequest":
 		return on_launch(event["request"], event["session"])
 	elif event["request"]["type"] == "IntentRequest":
@@ -82,32 +89,28 @@ def devInfo():
 		}
     
     
-	
-def on_intent(intent_request, session, deviceID=None, apiKEY=None):
-	intent = intent_request["intent"]
-	intent_name = intent_request["intent"]["name"]
-	if intent_name == "distance_To_Stop_Clemson_Area_Transit":
-		headers = {'Host': 'api.amazonalexa.com', 'Accept': 'application/json', 'Authorization': "Bearer {}".format(apiKEY)}
-		url = 'https://api.amazonalexa.com/v1/devices/{}/settings/address'.format(deviceID)
-		res = requests.get(url, headers=headers).json()
-		try:
-			myAddress = convertLatLong(res["addressLine1"] + " " + res["city"] + " " + res['stateOrRegion'])
-		except Exception as exp:
-			print exp
-			myAddress = None
-		a = transitWrapper.track(myAddress[0], myAddress[1])
-		routesNearMe = []
-		activeRoutes = a.returnNearbyActiveRoutes()
-		for i, val in enumerate(activeRoutes):
-			if i == len(activeRoutes) - 1 and len(activeRoutes) > 1:
-				routesNearMe.append("and " + val['long_name'])
-			else:
-				routesNearMe.append(val['long_name'])
-		if len(activeRoutes) > 1:
-			text = 'There are {} busses running near your location.  {}'.format(len(routesNearMe), ' '.join(routesNearMe))
+def nearbyBusses(deviceID, apiKEY):
+	headers = {'Host': 'api.amazonalexa.com', 'Accept': 'application/json', 'Authorization': "Bearer {}".format(apiKEY)}
+	url = 'https://api.amazonalexa.com/v1/devices/{}/settings/address'.format(deviceID)
+	res = requests.get(url, headers=headers).json()
+	try:
+		myAddress = convertLatLong(res["addressLine1"] + " " + res["city"] + " " + res['stateOrRegion'])
+	except Exception as exp:
+		print exp
+		myAddress = None
+	a = transitWrapper.track(myAddress[0], myAddress[1])
+	routesNearMe = []
+	activeRoutes = a.returnNearbyActiveRoutes()
+	for i, val in enumerate(activeRoutes):
+		if i == len(activeRoutes) - 1 and len(activeRoutes) > 1:
+			routesNearMe.append("and " + val['long_name'])
 		else:
-			text = 'There is 1 bus running near your location.  The route is entitled {}'.format(routesNearMe[0])
-		return {
+			routesNearMe.append(val['long_name'])
+	if len(activeRoutes) > 1:
+		text = 'There are {} busses running near your location.  {}'.format(len(routesNearMe), ' '.join(routesNearMe))
+	else:
+		text = 'There is 1 bus running near your location.  The route is entitled {}'.format(routesNearMe[0])
+	return {
 				"version": "1.0",
 				"sessionAttributes": {},
 				"response": {
@@ -118,6 +121,55 @@ def on_intent(intent_request, session, deviceID=None, apiKEY=None):
 					"shouldEndSession": True
 				  }
 				}
+
+def convertVal(feet):
+	if feet < 5280:
+		return "{} Feet".format(str(int(feet)))
+	else:
+		return "{} Miles".format(int(feet) / 5280)
+
+def nearbyStops(deviceID, apiKEY):
+	if deviceID != "Test":
+		try:
+			headers = {'Host': 'api.amazonalexa.com', 'Accept': 'application/json', 'Authorization': "Bearer {}".format(apiKEY)}
+			url = 'https://api.amazonalexa.com/v1/devices/{}/settings/address'.format(deviceID)
+			res = requests.get(url, headers=headers).json()
+			try:
+				myAddress = convertLatLong(res["addressLine1"] + " " + res["city"] + " " + res['stateOrRegion'])
+			except Exception as exp:
+				print exp
+				myAddress = None
+			a = transitWrapper.track(myAddress[0], myAddress[1])
+			val = a.findClosestStop()
+			distance = val["Distance"]
+		except:
+			distance = 50001
+	else:
+		distance = 50001
+	if distance < 50000:
+		name = val['Name']
+		text = "It looks like there is a stop called {} that is {} from you.".format(name, convertVal(distance))
+	else:
+		text = "It looks like no nearby stops can be found.  This is usually caused by misconfigured location settings in the Alexa Skills app.  Please check that your address is correct by going to the settings menu in the Alexa Skills application.  If problems persist, you can set default Stop IDs by saying. set default stop. followed by the route ID found on the transloc website"
+	return {
+					"version": "1.0",
+					"sessionAttributes": {},
+					"response": {
+					"outputSpeech": {
+					"type": "PlainText",
+					"text": text
+						},
+						"shouldEndSession": True
+					  }
+					}
+	
+def on_intent(intent_request, session, deviceID=None, apiKEY=None):
+	intent = intent_request["intent"]
+	intent_name = intent_request["intent"]["name"]
+	if intent_name == "active_Busses_Clemson_Area_Transit":
+		return nearbyBusses(deviceID, apiKEY)
+	elif intent_name == 'distance_To_Stop_Clemson_Area_Transit':
+		return nearbyStops(deviceID, apiKEY)
 	elif intent_name == 'aboutDev':
 		return devInfo()
 	elif intent_name == "AMAZON.HelpIntent":

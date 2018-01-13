@@ -30,7 +30,7 @@ class track(object):
 		self.stopDatabase = self.findAllStops()
 		self.stopName = stopName
 		if self.stopName == None:
-			self.stopName = self.findClosestStop()
+			self.stopName = self.findClosestStop()['Data']
 		self.stopNumber = self.stopName['code']
 		self.notifcationCount = 0
 		self.notificationMessages = []
@@ -136,9 +136,9 @@ class track(object):
 		coords1 = (self.latitude, self.longitude)
 		for var in self.stopDatabase:
 			coords2 = (var['position'][0], var['position'][1])
-			self.listOfStops.append({"Data": var, "Name": var['name'], "Distance": geopy.distance.vincenty(coords1, coords2).miles})
+			self.listOfStops.append({"Data": var, "Name": var['name'], "Distance": geopy.distance.vincenty(coords1, coords2).feet})
 		self.listOfStops = sorted(self.listOfStops, key=lambda k: k['Distance']) 
-		return self.listOfStops[0]['Data']
+		return self.listOfStops[0]
 
 	def findRoutesFromLatLong(self):
 		listOfRoutes = []
@@ -240,7 +240,8 @@ if __name__ == "__main__":
 	#CLEMSON_LAT, CLEMSON_LONG = 34.7189472, -82.3064414
 	YALE_LAT, YALE_LONG = 41.312529, -72.922985
 	a = track(CLEMSON_LAT, CLEMSON_LONG)
-	for var in a.returnNearbyActiveRoutes():
-		print var
+	#for var in a.returnNearbyActiveRoutes():
+		#print var
+	print a.findClosestStop()
 	end = time.time()
 	print(end - start)
