@@ -32,46 +32,8 @@ def lambda_handler(event, context):
 def on_launch(launch_request, session):
 	return get_welcome_response()
 
-def Generator(length):
-	Scramble = []
-	while len(Scramble) < length:
-		Move = random.choice(Notation)
-		MoveStr = " ".join(re.findall("[a-zA-Z]+", str(Move)))
-		PreviousMove = Scramble[-1:]
-		PreviousMove = " ".join(re.findall("[a-zA-Z]+", str(PreviousMove)))
-		if MoveStr != PreviousMove:
-			Num = random.randint(1,3)
-			if Num == 1 or Num == 3:
-				Scramble.append(Move)
-			else:
-				if "'" in str(Move):
-					Move = str(Move).replace("'", "")
-				Scramble.append('{}2'.format(Move))
-	T = ""
-	for moves in Scramble:
-		T = T + " " + str(moves)
-	return T
-	
-def returnScrambleResponse():
-    scramble = Generator(25)
-    response = ''
-    moves = scramble.split(' ')
-    for move in moves:
-        response = response + str(' '.join(list(move))) + '. '
-    response = response.replace("'", ' inverted ').replace('R', "Right").replace("L", "Left").replace("U", "Up").replace("D", "Down").replace("B", "Back").replace("F", "Front")
-    if response[0] == '.':
-        response = response[1:]
-    return {
-				"version": "1.0",
-				"sessionAttributes": {},
-				"response": {
-				"outputSpeech": {
-				"type": "PlainText",
-				"text": response
-					},
-					"shouldEndSession": True
-				  }
-				}
+
+
 				
 def devInfo():
 	text = "created in December 2017 by Christopher Lambert.  This alexa skill is completely open sourced.  Please check out the skill on Git Hub or contact me for more information"
@@ -98,6 +60,31 @@ def nearbyBusses(deviceID, apiKEY):
 		print exp
 		myAddress = None
 	a = transitWrapper.track(myAddress[0], myAddress[1])
+	routesNearMe = []
+	activeRoutes = a.returnNearbyActiveRoutes()
+	for i, val in enumerate(activeRoutes):
+		if i == len(activeRoutes) - 1 and len(activeRoutes) > 1:
+			routesNearMe.append("and " + val['long_name'])
+		else:
+			routesNearMe.append(val['long_name'])
+	if len(activeRoutes) > 1:
+		text = 'There are {} busses running near your location.  {}'.format(len(routesNearMe), ' '.join(routesNearMe))
+	else:
+		text = 'There is 1 bus running near your location.  The route is entitled {}'.format(routesNearMe[0])
+	return {
+				"version": "1.0",
+				"sessionAttributes": {},
+				"response": {
+				"outputSpeech": {
+				"type": "PlainText",
+				"text": text
+					},
+					"shouldEndSession": True
+				  }
+				}
+
+def testEnvironment():
+	a = transitWrapper.track(agencyNum=639)
 	routesNearMe = []
 	activeRoutes = a.returnNearbyActiveRoutes()
 	for i, val in enumerate(activeRoutes):
@@ -169,6 +156,8 @@ def on_intent(intent_request, session, deviceID=None, apiKEY=None):
 		return nearbyBusses(deviceID, apiKEY)
 	elif intent_name == 'distance_To_Stop_Clemson_Area_Transit':
 		return nearbyStops(deviceID, apiKEY)
+	elif intent_name == 'test_Environment_Clemson_Area_Transit':
+		return testEnvironment()
 	elif intent_name == 'aboutDev':
 		return devInfo()
 	elif intent_name == "AMAZON.HelpIntent":

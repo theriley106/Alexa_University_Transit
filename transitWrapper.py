@@ -11,8 +11,10 @@ headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleW
 
 class track(object):
 	#placeholder bot class - will eventually merge a ton of stuff into this
-	def __init__(self, latitude, longitude, routeName=None, busName=None, stopName=None):
+	def __init__(self, latitude=None, longitude=None, routeName=None, busName=None, stopName=None, agencyNum=None):
 		print("Lat: {} Long: {}".format(latitude, longitude))
+		if longitude == None and latitude == None and agencyNum != None:
+			latitude, longitude = self.generateRandomStopLongLat(agencyNum)
 		self.longitude = longitude
 		self.latitude = latitude
 		self.listOfStops = []
@@ -36,6 +38,10 @@ class track(object):
 		self.notificationMessages = []
 		self.checkForNewAnnouncements()
 		self.getArrivalTimes()
+
+	def generateRandomStopLongLat(self, agencyNum):
+		res = requests.get('https://feeds.transloc.com/3/stops?&agencies={}'.format(agencyNum)).json()
+		return random.choice(res['stops'])['position']
 
 	def downloadDatabase(self):
 		#this is going to set up every value per session
@@ -239,9 +245,7 @@ if __name__ == "__main__":
 	CLEMSON_LAT, CLEMSON_LONG = 34.654340, -82.858492
 	#CLEMSON_LAT, CLEMSON_LONG = 34.7189472, -82.3064414
 	YALE_LAT, YALE_LONG = 41.312529, -72.922985
-	a = track(CLEMSON_LAT, CLEMSON_LONG)
+	a = track(agencyNum=128)
 	#for var in a.returnNearbyActiveRoutes():
 		#print var
 	print a.findClosestStop()
-	end = time.time()
-	print(end - start)
