@@ -6,7 +6,6 @@ from geopy.distance import vincenty
 geolocator = GoogleV3(api_key='AIzaSyDBZre20-q9hSY0BFXTqmiZr5-orJSuwr0')
 import transitWrapper
 
-Notation = ["R", "R'", "L", "L'", "U", "U'", "F", "F'", "B", "B'"]
 
 def convertLatLong(address):
 	a = geolocator.geocode(address)
@@ -197,9 +196,9 @@ def get_help_response():
 		
 def get_welcome_response():
 	session_attributes = {}
-	card_title = "Rubik's Cube Scramble Generator"
+	card_title = "Transit Tracker"
 	speech_output = "Bus Tracker Dev Environment"
-	reprompt_text = "Please ask me to generate a scramble.  You can also ask about the Developer of this application"
+	reprompt_text = "Bus Tracker Dev Environment"
 	should_end_session = False
 	return build_response(session_attributes, build_speechlet_response(
 		card_title, speech_output, reprompt_text, should_end_session))
