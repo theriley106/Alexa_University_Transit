@@ -35,7 +35,7 @@ def on_launch(launch_request, session):
 
 
 				
-def devInfo():
+'''def devInfo():
 	text = "created in December 2017 by Christopher Lambert.  This alexa skill is completely open sourced.  Please check out the skill on Git Hub or contact me for more information"
 	return {
 		"version": "1.0",
@@ -47,6 +47,21 @@ def devInfo():
 			},
 			"shouldEndSession": True
 		  }
+		}'''
+
+def devInfo():
+	text = "created in December 2017 by Christopher Lambert.  This alexa skill is completely open sourced.  Please check out the skill on Git Hub or contact me for more information"
+	return {
+		"version": "1.0",
+		"sessionAttributes": {},
+		"response": {
+			"outputSpeech": 
+			{
+			      "type": "SSML",
+			      "ssml": "<speak><audio src='https://s3.amazonaws.com/aws-website-resources-1183x/dice-die-roll.mp3'/></speak>"
+	    			},
+					"shouldEndSession": True
+				  }
 		}
     
     
