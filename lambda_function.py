@@ -221,7 +221,7 @@ def handle_session_end_request():
 	"response": {
 	"outputSpeech": {
 	"type": "PlainText",
-	"text": "Thanks for checking out Rubiks Scrambler!"
+	"text": "Goodbye!"
 		},
 		"shouldEndSession": True
 	  }
