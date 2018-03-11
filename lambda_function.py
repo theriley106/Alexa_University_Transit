@@ -17,7 +17,7 @@ def lambda_handler(event, context):
 		deviceID = event["context"]["System"]['device']['deviceId']
 	except:
 		deviceID = "Test"
-	try:	
+	try:
 		key = event["context"]["System"]['apiAccessToken']
 	except:
 		key = ""
@@ -28,13 +28,13 @@ def lambda_handler(event, context):
 		return on_intent(event["request"], event["session"], deviceID=deviceID, apiKEY=key)
 	else:
 		handle_session_end_request()
-		
+
 def on_launch(launch_request, session):
 	return get_welcome_response()
 
 
 
-				
+
 '''def devInfo():
 	text = "created in December 2017 by Christopher Lambert.  This alexa skill is completely open sourced.  Please check out the skill on Git Hub or contact me for more information"
 	return {
@@ -55,16 +55,16 @@ def devInfo():
 		"version": "1.0",
 		"sessionAttributes": {},
 		"response": {
-			"outputSpeech": 
+			"outputSpeech":
 			{
 			      "type": "SSML",
-			      "ssml": "<speak><audio src='https://s3.amazonaws.com/aws-website-resources-1183x/dice-die-roll.mp3'/></speak>"
+			      "ssml": "<speak><audio src='https://s3.amazonaws.com/nucilohackathonbucket/finalfile.mp3'/></speak>"
 	    			},
 					"shouldEndSession": True
 				  }
 		}
-    
-    
+
+
 def nearbyBusses(deviceID, apiKEY):
 	headers = {'Host': 'api.amazonalexa.com', 'Accept': 'application/json', 'Authorization': "Bearer {}".format(apiKEY)}
 	url = 'https://api.amazonalexa.com/v1/devices/{}/settings/address'.format(deviceID)
@@ -163,7 +163,7 @@ def nearbyStops(deviceID, apiKEY):
 						"shouldEndSession": True
 					  }
 					}
-	
+
 def on_intent(intent_request, session, deviceID=None, apiKEY=None):
 	intent = intent_request["intent"]
 	intent_name = intent_request["intent"]["name"]
@@ -179,7 +179,7 @@ def on_intent(intent_request, session, deviceID=None, apiKEY=None):
 		return get_help_response()
 	elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
 		return handle_session_end_request()
-		
+
 def returnSpeech(speech, endSession=True):
 	return {
 		"version": "1.0",
@@ -192,28 +192,28 @@ def returnSpeech(speech, endSession=True):
 			"shouldEndSession": endSession
 		  }
 		}
-		
+
 def get_help_response():
 	output = "Please ask me to generate a scramble.  You can also ask about the Developer of this application.  What can I help you with?"
 	return returnSpeech(output, False)
-		
-		
+
+
 def get_welcome_response():
 	session_attributes = {}
 	card_title = "Transit Tracker"
-	speech_output = "Bus Tracker Dev Environment"
-	reprompt_text = "Bus Tracker Dev Environment"
+	speech_output = "Thanks for checking out the clemson university bus tracker by Christopher Lambert.  You can ask me to find the closest bus stop or you can find time estimates for the Clemson University bus system"
+	reprompt_text = "Thanks for checking out the clemson university bus tracker by Christopher Lambert.  You can ask me to find the closest bus stop or you can find time estimates for the Clemson University bus system"
 	should_end_session = False
 	return build_response(session_attributes, build_speechlet_response(
 		card_title, speech_output, reprompt_text, should_end_session))
-		
+
 def build_response(session_attributes, speechlet_response):
 	return {
 		"version": "1.0",
 		"sessionAttributes": session_attributes,
 		"response": speechlet_response
 	}
-	
+
 def handle_session_end_request():
 	return {
 	"version": "1.0",
@@ -226,7 +226,7 @@ def handle_session_end_request():
 		"shouldEndSession": True
 	  }
 	}
-	
+
 def build_speechlet_response_without_card(output, reprompt_text, should_end_session):
     return {
         'outputSpeech': {
@@ -241,7 +241,7 @@ def build_speechlet_response_without_card(output, reprompt_text, should_end_sess
         },
         'shouldEndSession': should_end_session
     }
-	
+
 def build_speechlet_response(title, output, reprompt_text, should_end_session):
 	return {
 		"outputSpeech": {
