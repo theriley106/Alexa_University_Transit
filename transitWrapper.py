@@ -250,16 +250,20 @@ def cilTool():
 	school = raw_input("University Name: ")
 	lat = raw_input("Latitutde: ")
 	lon = raw_input("Longitude: ")
+	agencyID = convertSchoolNameToNumber(school)
+	a = track(agencyNum=agencyID, latitude=lat, longitude=lon)
+	print a.findClosestStop()
 
 
 	a = track(agencyNum=128, latitude=YALE_LAT, longitude=YALE_LONG)
 if __name__ == "__main__":
-	print getAllAgencyInfo()
+	'''print getAllAgencyInfo()
 	start = time.time()
 	CLEMSON_LAT, CLEMSON_LONG = 34.654340, -82.858492
 	#CLEMSON_LAT, CLEMSON_LONG = 34.7189472, -82.3064414
 	YALE_LAT, YALE_LONG = 41.312529, -72.922985
 	a = track(agencyNum=128, latitude=YALE_LAT, longitude=YALE_LONG)
 	#for var in a.returnNearbyActiveRoutes():
-		#print var
-	print a.findClosestStop()
+		#print var'''
+	cilTool()
+
