@@ -91,7 +91,7 @@ def findNearestStop(latitude, longitude, busName):
 			closestStop = var
 	return closestStop
 
-	
+
 
 def findRoutesFromLatLong(latitude, longitude, busName=None):
 	listOfRoutes = []
@@ -131,7 +131,7 @@ def findByLatLong(latitude, longitude):
 	for busses in DATABASE:
 		if checkInBounds(latitude, longitude, busses['bounds']) == True:
 			return busses['name']
-	
+
 def getAllAgencyInfo():
 	headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 	res = requests.get('https://feeds.transloc.com/agencies?', headers=headers)
@@ -179,12 +179,13 @@ def genStopDict(busName, routeNum):
 
 if __name__ == "__main__":
 	DATABASE = getAllAgencyInfo()
+	print DATABASE
 	#print returnInfoByName('yale')
-	#busSystem = 
-	#print 
+	#busSystem =
+	#print
 	'''var = findByLatLong(41.312529, -72.922985)
 	print var
-	
+
 	stopDict = genStopDict(var, routes)
 	for var in getArrivalTimes(var, routes):
 		print("The Bus at {} will arrive in {} minutes".format(stopDict[str(var['ID'])]['Name'], str(var['Arrivals'])))

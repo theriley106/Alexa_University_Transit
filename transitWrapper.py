@@ -198,6 +198,11 @@ def convertBusNameToNumber(busName):
 		if val['name'] == busName:
 			return val['id']
 
+def convertSchoolNameToNumber(schoolName):
+	for val in getAllAgencyInfo():
+		if val['short_name'].lower() == schoolName:
+			return val['id']
+
 def getAllAgencyInfo():
 	with open('agencyInfo.json') as json_data:
 		return json.load(json_data)['agencies']
@@ -241,7 +246,15 @@ def extractArrivalsAndID(string):
 	else:
 		return None
 
+def cilTool():
+	school = raw_input("University Name: ")
+	lat = raw_input("Latitutde: ")
+	lon = raw_input("Longitude: ")
+
+
+	a = track(agencyNum=128, latitude=YALE_LAT, longitude=YALE_LONG)
 if __name__ == "__main__":
+	print getAllAgencyInfo()
 	start = time.time()
 	CLEMSON_LAT, CLEMSON_LONG = 34.654340, -82.858492
 	#CLEMSON_LAT, CLEMSON_LONG = 34.7189472, -82.3064414
