@@ -20,6 +20,7 @@ class track(object):
 		self.latitude = latitude
 		self.listOfStops = []
 		self.agencyInfo = getAllAgencyInfo()
+		self.getSpecificInfo = self.getSpecificInfo()
 		self.busName = busName
 		if self.busName == None:
 			self.busName = self.findBusName()
@@ -45,10 +46,9 @@ class track(object):
 
 	def getSpecificInfo(self):
 		# You should implement this val into everything eventually
-		for val in getAllAgencyInfo():
-			if val['name'] == busName:
-				print(val["long_name"])
-				return val['id']
+		for val in self.agencyInfo:
+			if val['name'] == self.busName:
+				return val
 
 	def generateRandomLongitude(self):
 		self.latitude = random.uniform(bounds[0], bounds[2])
