@@ -26,7 +26,6 @@ class track(object):
 		self.busNumber = convertBusNameToNumber(self.busName)
 		self.listOfRoutes = self.findRoutesFromLatLong()
 		self.nearbyRoutes = self.findNearbyRoutes()
-
 		self.activeRoutes = self.returnAllActiveRoutes()
 		#the idea is that you pick one of these routes...
 		self.routeNumber = self.chooseRoute()
@@ -193,14 +192,9 @@ class track(object):
 
 
 def convertBusNameToNumber(busName):
-	print busName
 	for val in getAllAgencyInfo():
 		if val['name'] == busName:
-			return val['id']
-
-def convertSchoolNameToNumber(schoolName):
-	for val in getAllAgencyInfo():
-		if val['short_name'].lower() == schoolName:
+			print(val["long_name"])
 			return val['id']
 
 def getAllAgencyInfo():
@@ -250,7 +244,7 @@ def cilTool():
 	school = raw_input("University Name: ")
 	lat = raw_input("Latitutde: ")
 	lon = raw_input("Longitude: ")
-	agencyID = convertSchoolNameToNumber(school)
+	agencyID = convertBusNameToNumber(school)
 	a = track(agencyNum=agencyID, latitude=lat, longitude=lon)
 	print a.findClosestStop()
 
