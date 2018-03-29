@@ -43,6 +43,18 @@ class track(object):
 		res = requests.get('https://feeds.transloc.com/3/stops?&agencies={}'.format(agencyNum)).json()
 		return random.choice(res['stops'])['position']
 
+	def getSpecificInfo(self):
+		# You should implement this val into everything eventually
+		for val in getAllAgencyInfo():
+			if val['name'] == busName:
+				print(val["long_name"])
+				return val['id']
+
+	def generateRandomLongitude(self):
+		self.latitude = random.uniform(bounds[0], bounds[2])
+		self.longitude = random.uniform(bounds[1], bounds[3])
+		return (xBounds, yBounds)
+
 	def downloadDatabase(self):
 		#this is going to set up every value per session
 		pass
