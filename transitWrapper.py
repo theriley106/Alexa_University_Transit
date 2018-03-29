@@ -27,7 +27,6 @@ class track(object):
 		self.busName = busName
 		if self.busName == None:
 			self.busName = self.findBusName()
-		print(self.busName)
 		self.listOfStops = []
 		self.busNumber = convertBusNameToNumber(self.busName)
 		self.listOfRoutes = self.findRoutesFromLatLong()
@@ -84,8 +83,12 @@ class track(object):
 
 	def findBusName(self):
 		for busses in self.agencyInfo:
-			if checkInBounds(self.latitude, self.longitude, busses['bounds']) == True:
-				return busses['name']
+			if self.agencyNum == None:
+				if checkInBounds(self.latitude, self.longitude, busses['bounds']) == True:
+					return busses['name']
+			else:
+				if checkInBounds(self.latitude, self.longitude, busses['bounds']) == True and self.agencyNum == busses["id"]:
+					return busses['name']
 
 	def findAllStops(self):
 		return requests.get('https://feeds.transloc.com/3/stops?&agencies={}'.format(self.busNumber), headers=headers).json()['stops']
