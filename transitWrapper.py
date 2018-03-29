@@ -15,9 +15,11 @@ class track(object):
 	def __init__(self, latitude=None, longitude=None, routeName=None, busName=None, stopName=None, agencyNum=None):
 		print("Lat: {} Long: {}".format(latitude, longitude))
 		if longitude == None and latitude == None and agencyNum != None:
-			latitude, longitude = self.generateRandomStopLongLat(agencyNum)
-		self.longitude = longitude
-		self.latitude = latitude
+			#latitude, longitude = self.generateRandomStopLongLat(agencyNum)
+			self.generateRandomLongitude()
+		else:
+			self.longitude = longitude
+			self.latitude = latitude
 		self.listOfStops = []
 		self.agencyInfo = getAllAgencyInfo()
 		self.getSpecificInfo = self.getSpecificInfo()
