@@ -13,19 +13,22 @@ headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleW
 class track(object):
 	#placeholder bot class - will eventually merge a ton of stuff into this
 	def __init__(self, latitude=None, longitude=None, routeName=None, busName=None, stopName=None, agencyNum=None):
-		print("Lat: {} Long: {}".format(latitude, longitude))
+		#print("Lat: {} Long: {}".format(latitude, longitude))
+		self.agencyNum = agencyNum
+		self.agencyInfo = getAllAgencyInfo()
+		self.getSpecificInfo = self.getSpecificInfo()
 		if longitude == None and latitude == None and agencyNum != None:
 			#latitude, longitude = self.generateRandomStopLongLat(agencyNum)
 			self.generateRandomLongitude()
 		else:
 			self.longitude = longitude
 			self.latitude = latitude
-		self.listOfStops = []
-		self.agencyInfo = getAllAgencyInfo()
-		self.getSpecificInfo = self.getSpecificInfo()
+
 		self.busName = busName
 		if self.busName == None:
 			self.busName = self.findBusName()
+		print(self.busName)
+		self.listOfStops = []
 		self.busNumber = convertBusNameToNumber(self.busName)
 		self.listOfRoutes = self.findRoutesFromLatLong()
 		self.nearbyRoutes = self.findNearbyRoutes()
@@ -49,13 +52,13 @@ class track(object):
 	def getSpecificInfo(self):
 		# You should implement this val into everything eventually
 		for val in self.agencyInfo:
-			if val['name'] == self.busName:
+			if val['id'] == self.agencyNum:
 				return val
 
 	def generateRandomLongitude(self):
+		bounds = self.getSpecificInfo['bounds']
 		self.latitude = random.uniform(bounds[0], bounds[2])
 		self.longitude = random.uniform(bounds[1], bounds[3])
-		return (xBounds, yBounds)
 
 	def downloadDatabase(self):
 		#this is going to set up every value per session
@@ -269,9 +272,8 @@ if __name__ == "__main__":
 	start = time.time()
 	CLEMSON_LAT, CLEMSON_LONG = 34.654340, -82.858492
 	#CLEMSON_LAT, CLEMSON_LONG = 34.7189472, -82.3064414
-	YALE_LAT, YALE_LONG = 41.312529, -72.922985
-	a = track(agencyNum=128, latitude=YALE_LAT, longitude=YALE_LONG)
-	#for var in a.returnNearbyActiveRoutes():
-		#print var'''
-	cilTool()
+	YALE_LAT, YALE_LONG = 41.312529, -72.922985'''
+	a = track(agencyNum=128)
+	for var in a.returnNearbyActiveRoutes():
+		print var
 
