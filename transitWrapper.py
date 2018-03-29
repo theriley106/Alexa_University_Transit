@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import transloc
 import re
 import requests
@@ -25,7 +26,7 @@ class track(object):
 		self.busNumber = convertBusNameToNumber(self.busName)
 		self.listOfRoutes = self.findRoutesFromLatLong()
 		self.nearbyRoutes = self.findNearbyRoutes()
-		
+
 		self.activeRoutes = self.returnAllActiveRoutes()
 		#the idea is that you pick one of these routes...
 		self.routeNumber = self.chooseRoute()
@@ -143,7 +144,7 @@ class track(object):
 		for var in self.stopDatabase:
 			coords2 = (var['position'][0], var['position'][1])
 			self.listOfStops.append({"Data": var, "Name": var['name'], "Distance": geopy.distance.vincenty(coords1, coords2).feet})
-		self.listOfStops = sorted(self.listOfStops, key=lambda k: k['Distance']) 
+		self.listOfStops = sorted(self.listOfStops, key=lambda k: k['Distance'])
 		return self.listOfStops[0]
 
 	def findRoutesFromLatLong(self):
@@ -200,7 +201,7 @@ def convertBusNameToNumber(busName):
 def getAllAgencyInfo():
 	with open('agencyInfo.json') as json_data:
 		return json.load(json_data)['agencies']
-			
+
 def extractXMLElem(string, element):
 	try:
 		return re.findall('{}="(.*?)"'.format(element), string)[0]
