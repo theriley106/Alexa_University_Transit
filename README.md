@@ -1,1 +1,1 @@
-# findBus - Alexa Skill
+Alexa University Transit
