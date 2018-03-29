@@ -1,1 +1,144 @@
 # Alexa University Transit
+
+## Supported Schools
+
+- Adelphi University
+- Alabama A&M University
+- Atlantic Station Shuttles
+- Auburn University
+- Ball State University
+- Beck Bus-Southern Illinois University, Carbondale
+- Biola University
+- Boston Children’s Hospital
+- Boston College
+- Boston University
+- Bowling Green State University
+- Brandeis University
+- Brown University
+- Bucknell University
+- Burlington Transit
+- Capitol Corridor Joint Powers Authority
+- Cary Transit
+- Central Midlands Transit-The Comet
+- Cerritos on Wheels
+- Chapel Hill Transit
+- Chapman University
+- Children’s Healthcare of Atlanta
+- City of Airdrie
+- City of Fayetteville (Fayetteville Area System Transit)
+- City of Gainesville-Regional Transit System
+- Clemson Area Transit
+- Colgate University
+- Columbia University
+- Cornish College of the Arts
+- Corpus Christi Regional Transportation Authority
+- County of Maui – Transportation Department
+- Duke University
+- East Carolina University
+- Eastern Connecticut State University
+- Emory University
+- Fairfield University
+- Florida Agricultural and Mechanical University
+- Florida International University
+- Florida State University
+- Fordham University
+- University of Alabama at Birmingham
+- University of Tennessee
+- Georgetown University
+- Georgia College and State University
+- Georgia State University
+- GoDurham
+- GoRaleigh
+- GoTriangle
+- Greensboro Transit Authority
+- Harvard University
+- High Point University
+- Independence Transit
+- Jacksonville Transit
+- Jacksonville University
+- Johns Hopkins Bayview Medical Center
+- Johns Hopkins Medical Institute
+- Johns Hopkins University
+- Johnson & Wales University
+- Johnson & Wales University: North Miami Campus
+- Kennesaw State University
+- Lamar University
+- Lawrence Technological University
+- Lexington Transit Authority
+- Life University
+- Louisiana State University
+- Mansfield University
+- Martha’s Vineyard Transit Authority
+- MASCO
+- Memphis Area Transit Authority
+- Mercer University
+- Monona Express
+- Montgomery County Community College
+- Morgan State University
+- Nantucket Regional Transit Authority
+- New Jersey City University
+- New Mexico DOT
+- New York University
+- North Carolina State University
+- North Carolina State University – College of Engineering
+- Northern Arizona University
+- Northwestern University
+- NYU Langone Medical Center
+- Oakland University
+- Penn State Hershey Medical Center
+- Philadelphia University
+- Piedmont Authority for Regional Transportation
+- Playa Vista Parks & Landscape Corporation
+- Princeton University
+- University of New Haven
+- Quinnipiac University
+- Rhode Island College
+- Rhode Island School of Design
+- Robert Morris University
+- Robert W. Woodruff Library, Atlanta University Center
+- Rochester Institute of Technology
+- Rock Island County Metropolitan Mass Transit District (MetroLINK)
+- Rowan University
+- San Jose International Airport
+- Santa Clara Valley Transportation Authority
+- Savannah College of Art & Design
+- Savannah College of Art & Design – Atlanta
+- Southern Illinois University, Carbondale
+- StarMetro
+- Stevens Institute of Technology
+- Swarthmore College
+- Texas Christian University
+- The M Transit System
+- The Pennsylvania State University-Main Campus
+- The University of Alabama, Tuscaloosa
+- The University of Alabama at Birmingham
+- The University of Arizona
+- The University of Chicago
+- The University of Maryland, Baltimore County
+- The University of Texas at Arlington
+- The University of Toledo
+- The University of Vermont
+- Troy University
+- Tuscaloosa Transit Authority (TTA)
+- UF Health Shands Hospital – UFL
+- United States Military Academy
+- University of Iowa
+- University of Kentucky
+- University of Maryland-College Park
+- University of Massachusetts Boston
+- University of Memphis
+- University of New Haven
+- University of North Alabama
+- University of North Carolina at Chapel Hill
+- University of North Florida
+- University of Rochester
+- University of South Carolina-Columbia
+- University of Tennessee
+- University of Virginia
+- University of Western Sydney
+- University of West Florida Main Campus
+- University of Wyoming
+- Virginia Commonwealth University
+- Wake Forest University
+- Widener University
+- Yale University
