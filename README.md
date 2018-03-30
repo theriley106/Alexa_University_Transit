@@ -60,6 +60,17 @@ self.agencyNum
 self.agencyInfo
 # This contains info on all Transloc bus routes```
 
+```python
+self.getSpecificInfo
+# This contains info relevant to the inputted agency ID```
+
+```python
+self.longitude
+# This refers to the inputted/randomly generated longitude```
+
+```python
+self.latitude
+# This refers to the inputted/randomly generated latitude```
 
 
 ## Sample Utterances
