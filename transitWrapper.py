@@ -239,7 +239,10 @@ class track(object):
 	def getStopInfoByCode(self, stopCode):
 		for val in self.allInfo['Stops']["stops"]:
 			if str(val["code"]) == str(stopCode):
-				return val["name"]
+				return val
+
+	def getStopNameByCode(self, stopCode):
+		return self.getStopInfoByCode(stopCode)["name"]
 
 
 
