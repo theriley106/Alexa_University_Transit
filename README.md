@@ -2,6 +2,20 @@
 
 ## Sample Utterances
 
+"What busses are running right now?"
+
+"Where is the nearest stop?"
+
+"How far is the bus"
+
+"What time will the bus be here?"
+
+"Set a default bus"
+
+"What time will the {busName} be here"
+
+"How fast is the {busName} going"
+
 ## Supported Schools
 
 - Adelphi University
