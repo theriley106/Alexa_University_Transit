@@ -72,6 +72,14 @@ self.longitude
 self.latitude
 # This refers to the inputted/randomly generated latitude```
 
+```python
+self.busName
+# This refers to the short name of the bus system.  Ie: yale, catbus, etc.```
+
+```python
+self.busNumber
+# This ALSO refers to the agencyNum...```
+
 
 ## Sample Utterances
 
