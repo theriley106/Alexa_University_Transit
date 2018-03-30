@@ -93,7 +93,7 @@ class track(object):
 					return busses['name']
 
 	def findAllStops(self):
-		return requests.get('https://feeds.transloc.com/3/stops?&agencies={}'.format(self.busNumber), headers=headers).json()['stops']
+		return self.allInfo["Stops"]['stops']
 
 
 	def generateRouteStops(self):
