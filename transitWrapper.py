@@ -43,8 +43,8 @@ class track(object):
 		self.stopNumber = self.stopName['code']
 		self.notifcationCount = 0
 		self.notificationMessages = []
-		self.checkForNewAnnouncements()
-		self.getArrivalTimes()
+		#self.checkForNewAnnouncements()
+		#self.getArrivalTimes()
 
 	def generateRandomStopLongLat(self, agencyNum):
 		res = self.allInfo["Stops"]
