@@ -118,6 +118,13 @@ self.generateRandomLongitude()
 # This will regenerate self.longitude and self.latitude
 ```
 
+```python
+self.getArrivalTimes()
+# This returns arrival times for the closest bus
+# This will likely be removed soon, this is an additional API call
+# that can be replaced by comparing values in self.allInfo
+```
+
 ## Sample Utterances
 
 "What busses are running right now?"
