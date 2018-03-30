@@ -21,7 +21,6 @@ Announcements
 self.agencyNum
 # This is the agency number that for the bus route```
 
-
 ```python
 self.agencyInfo
 # This contains info on all Transloc bus routes```
