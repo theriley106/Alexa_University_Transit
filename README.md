@@ -17,7 +17,6 @@ Announcements
 ## Transit Wrapper Functionality
 
 
-self.allInfo = interactions.grabAllInfo(self.busNumber)
 self.listOfRoutes = self.findRoutesFromLatLong()
 self.nearbyRoutes = self.findNearbyRoutes()
 self.activeRoutes = self.returnAllActiveRoutes()
@@ -71,6 +70,10 @@ self.listOfStops
 ```python
 self.allInfo
 # This is a python dict containing all information about this bus system```
+
+```python
+self.nearbyRoutes
+# This returns all routes where self.longitude and self.latitude are within the listed bounds```
 
 ## Sample Utterances
 
