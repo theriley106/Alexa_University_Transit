@@ -160,7 +160,7 @@ class track(object):
 
 	def findRoutesFromLatLong(self):
 		listOfRoutes = []
-		res = requests.get('https://feeds.transloc.com/3/routes?agencies={}'.format(self.busNumber), headers=headers).json()
+		res = self.allInfo["Routes"]
 		try:
 			for val in res["routes"]:
 				try:
