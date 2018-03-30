@@ -1,5 +1,6 @@
 import requests
 import threading
+import time
 
 GET_ALL_ROUTES  = "https://feeds.transloc.com/3/routes?agencies={0}"
 GET_CURRENT_INFO = "https://feeds.transloc.com/3/vehicle_statuses?agencies={0}"
@@ -28,4 +29,8 @@ def grabAllInfo(agencyId):
 	for thread in threads:
 		thread.join()
 	return tempDict
-print grabAllInfo('128')
+if __name__ == '__main__':
+	start = time.time()
+	a = grabAllInfo('128')
+	end = time.time()
+	print(end - start)
