@@ -16,11 +16,7 @@ Announcements
 
 ## Transit Wrapper Functionality
 
-self.routeNumber = self.chooseRoute()
-self.stopDatabase = self.findAllStops()
-self.stopName = stopName
-if self.stopName == None:
-	self.stopName = self.findClosestStop()['Data']
+
 self.stopNumber = self.stopName['code']
 self.notifcationCount = 0
 self.notificationMessages = []
@@ -90,6 +86,10 @@ self.stopDatabase
 
 ```python
 self.stopName
+# This returns info on either the closest stop or the default stop```
+
+```python
+self.stopNumber
 # This returns info on either the closest stop or the default stop```
 
 ## Sample Utterances
