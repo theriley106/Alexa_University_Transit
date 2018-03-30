@@ -24,12 +24,14 @@ class track(object):
 		else:
 			self.longitude = longitude
 			self.latitude = latitude
-
 		self.busName = busName
 		if self.busName == None:
 			self.busName = self.findBusName()
 		self.listOfStops = []
-		self.busNumber = convertBusNameToNumber(self.busName)
+		if self.agencyNum == None:
+			self.busNumber = convertBusNameToNumber(self.busName)
+		else:
+			self.busNumber = self.agencyNum
 		self.allInfo = interactions.grabAllInfo(self.busNumber)
 		self.listOfRoutes = self.findRoutesFromLatLong()
 		self.nearbyRoutes = self.findNearbyRoutes()
@@ -268,7 +270,7 @@ if __name__ == "__main__":
 	CLEMSON_LAT, CLEMSON_LONG = 34.654340, -82.858492
 	#CLEMSON_LAT, CLEMSON_LONG = 34.7189472, -82.3064414
 	YALE_LAT, YALE_LONG = 41.312529, -72.922985'''
-	a = track(agencyNum=convertBusNameToNumber('catbus'))
+	a = track(agencyNum=convertBusNameToNumber('yale'))
 	for var in a.activeRoutes:
 		print var
 
