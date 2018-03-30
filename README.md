@@ -16,23 +16,7 @@ Announcements
 
 ## Transit Wrapper Functionality
 
-self.agencyNum = agencyNum
-self.agencyInfo = getAllAgencyInfo()
-self.getSpecificInfo = self.getSpecificInfo()
-if longitude == None and latitude == None and agencyNum != None:
-	#latitude, longitude = self.generateRandomStopLongLat(agencyNum)
-	self.generateRandomLongitude()
-else:
-	self.longitude = longitude
-	self.latitude = latitude
-self.busName = busName
-if self.busName == None:
-	self.busName = self.findBusName()
-self.listOfStops = []
-if self.agencyNum == None:
-	self.busNumber = convertBusNameToNumber(self.busName)
-else:
-	self.busNumber = self.agencyNum
+
 self.allInfo = interactions.grabAllInfo(self.busNumber)
 self.listOfRoutes = self.findRoutesFromLatLong()
 self.nearbyRoutes = self.findNearbyRoutes()
@@ -80,6 +64,13 @@ self.busName
 self.busNumber
 # This ALSO refers to the agencyNum...```
 
+```python
+self.listOfStops
+# This refers to the list of stops used in this route.```
+
+```python
+self.allInfo
+# This is a python dict containing all information about this bus system```
 
 ## Sample Utterances
 
