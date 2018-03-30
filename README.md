@@ -95,6 +95,10 @@ self.stopNumber
 self.stopNumber
 # This returns the code for either the closest stop or the default stop```
 
+```python
+self.notifcationCount
+# Refers to the amount of unread notifications```
+
 ## Sample Utterances
 
 "What busses are running right now?"
