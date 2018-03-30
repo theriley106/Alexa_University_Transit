@@ -7,6 +7,7 @@ import bs4
 import geopy.distance
 import random
 import time
+import interactions
 
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 
@@ -29,6 +30,7 @@ class track(object):
 			self.busName = self.findBusName()
 		self.listOfStops = []
 		self.busNumber = convertBusNameToNumber(self.busName)
+		self.allInfo = interactions.grabAllInfo(self.busNumber)
 		self.listOfRoutes = self.findRoutesFromLatLong()
 		self.nearbyRoutes = self.findNearbyRoutes()
 		self.activeRoutes = self.returnAllActiveRoutes()
