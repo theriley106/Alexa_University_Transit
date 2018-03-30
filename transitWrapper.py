@@ -47,7 +47,7 @@ class track(object):
 		self.getArrivalTimes()
 
 	def generateRandomStopLongLat(self, agencyNum):
-		res = requests.get('https://feeds.transloc.com/3/stops?&agencies={}'.format(agencyNum)).json()
+		res = self.allInfo["Stops"]
 		return random.choice(res['stops'])['position']
 
 	def getSpecificInfo(self):
