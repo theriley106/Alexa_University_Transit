@@ -16,9 +16,6 @@ Announcements
 
 ## Transit Wrapper Functionality
 
-
-self.announcements = self.allInfo["Announcements"]['announcements']
-#the idea is that you pick one of these routes...
 self.routeNumber = self.chooseRoute()
 self.stopDatabase = self.findAllStops()
 self.stopName = stopName
@@ -86,6 +83,10 @@ self.activeVehicles
 ```python
 self.announcements
 # Returns a list of strings containing current announcements for this bus system```
+
+```python
+self.stopDatabase
+# This returns a list of python dictionaries containing info for all stops in this bus system```
 
 ## Sample Utterances
 
