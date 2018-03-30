@@ -17,9 +17,6 @@ Announcements
 ## Transit Wrapper Functionality
 
 
-self.listOfRoutes = self.findRoutesFromLatLong()
-self.nearbyRoutes = self.findNearbyRoutes()
-self.activeRoutes = self.returnAllActiveRoutes()
 self.activeVehicles = self.allInfo["currentInfo"]["vehicles"]
 self.announcements = self.allInfo["Announcements"]['announcements']
 #the idea is that you pick one of these routes...
@@ -82,6 +79,10 @@ self.nearbyRoutes
 ```python
 self.activeRoutes
 # This returns a list of python dictionaries containing info on all bus routes that are currently in service for this agencyID```
+
+```python
+self.activeVehicles
+# This returns a list of python dictionaries containing info on all vehicles that are currently running```
 
 ## Sample Utterances
 
