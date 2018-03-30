@@ -72,6 +72,10 @@ self.allInfo
 # This is a python dict containing all information about this bus system```
 
 ```python
+self.listOfRoutes
+# This is a list of python dictionaries containing info on all routes in this bus system```
+
+```python
 self.nearbyRoutes
 # This returns all routes where self.longitude and self.latitude are within the listed bounds```
 
