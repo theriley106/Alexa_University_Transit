@@ -36,6 +36,7 @@ class track(object):
 		self.listOfRoutes = self.findRoutesFromLatLong()
 		self.nearbyRoutes = self.findNearbyRoutes()
 		self.activeRoutes = self.returnAllActiveRoutes()
+		self.activeVehicles = self.allInfo["currentInfo"]["vehicles"]
 		self.announcements = self.allInfo["Announcements"]['announcements']
 		#the idea is that you pick one of these routes...
 		self.routeNumber = self.chooseRoute()
