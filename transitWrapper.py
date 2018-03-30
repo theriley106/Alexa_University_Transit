@@ -206,6 +206,12 @@ class track(object):
 					arrivalTimes.append(info)
 		return arrivalTimes
 
+	def getPositionByBusID(self, busID):
+		for val in self.allInfo["currentInfo"]["vehicles"]:
+			if str(val['id']) == str(busID):
+				return val["position"]
+
+
 
 
 
