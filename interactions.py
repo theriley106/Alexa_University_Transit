@@ -35,6 +35,7 @@ def grabAllInfo(agencyId):
 	for thread in threads:
 		thread.join()
 	return tempDict
+
 if __name__ == '__main__':
 	start = time.time()
 	a = grabAllInfo('128')
