@@ -1,5 +1,9 @@
 # Alexa University Transit
 
+## API Endpoints
+
+z
+
 ## Sample Utterances
 
 "What busses are running right now?"
@@ -23,6 +27,10 @@
 "How far away is the bus?"
 
 "Am I going to miss the bus?"
+
+"Where is the bus right now?"
+
+"Are there any announcements?"
 
 ## Supported Schools
 
