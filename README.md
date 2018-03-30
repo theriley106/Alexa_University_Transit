@@ -2,7 +2,17 @@
 
 ## API Endpoints
 
-z
+<h3>https://feeds.transloc.com/3/routes?agencies={agencyID}</h3>
+Routes
+
+<h3>https://feeds.transloc.com/3/vehicle_statuses?agencies={agencyID}</h3>
+Vehicle Status
+
+<h3>https://feeds.transloc.com/3/stops?agencies={agencyID}</h3>
+Stops
+
+<h3>https://feeds.transloc.com/3/announcements?agencies={agencyID}</h3>
+Announcements
 
 ## Sample Utterances
 
