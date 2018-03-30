@@ -9,5 +9,9 @@ def getRoutes(agencyId):
 	url = GET_ALL_ROUTES.format(agencyId)
 	tempDict["Routes"] = requests.get(url).json()
 
+def getStatus(agencyId):
+	url = GET_CURRENT_INFO.format(agencyId)
+	tempDict["currentInfo"] = requests.get(url).json()
+
 def grabAllInfo(agencyId):
 	res = requests.get("")
