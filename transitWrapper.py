@@ -95,16 +95,6 @@ class track(object):
 	def findAllStops(self):
 		return self.allInfo["Stops"]['stops']
 
-
-	def generateRouteStops(self):
-		information = {}
-		res = requests.get('https://{}.transloc.com/m/feeds/stops/{}'.format(self.busName, self.routeNumber)).text.split('<stop')
-		for var in res:
-			ID = extractXMLElem(var, 'id')
-			if ID != None:
-				information[ID] = {"Name": extractXMLElem(var, 'name'), "Code": extractXMLElem(var, 'code')}
-		return information
-
 	def returnClosestStopsNames(self, n=5):
 		return self.listOfStops[:n]
 
