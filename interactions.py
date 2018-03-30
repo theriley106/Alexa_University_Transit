@@ -13,5 +13,9 @@ def getStatus(agencyId):
 	url = GET_CURRENT_INFO.format(agencyId)
 	tempDict["currentInfo"] = requests.get(url).json()
 
+def getStopInfo(agencyId):
+	url = GET_STOP_INFO.format(agencyId)
+	tempDict["Stops"] = requests.get(url).json()
+
 def grabAllInfo(agencyId):
 	res = requests.get("")
