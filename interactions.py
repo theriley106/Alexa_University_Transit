@@ -1,6 +1,7 @@
 import requests
 import threading
 import time
+import json
 
 GET_ALL_ROUTES  = "https://feeds.transloc.com/3/routes?agencies={0}"
 GET_CURRENT_INFO = "https://feeds.transloc.com/3/vehicle_statuses?agencies={0}"
@@ -34,3 +35,5 @@ if __name__ == '__main__':
 	a = grabAllInfo('128')
 	end = time.time()
 	print(end - start)
+	with open('data.json', 'w') as outfile:
+		json.dump(a, outfile)
