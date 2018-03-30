@@ -18,5 +18,9 @@ def getStopInfo(agencyId):
 	tempDict["Stops"] = requests.get(url).json()
 
 def grabAllInfo(agencyId):
-
+	tempDict = {}
+	threads = []
+	threads.append(threading.Thread(target=getStopInfo, args=(agencyId,)))
+	threads.append(threading.Thread(target=getStatus, args=(agencyId,)))
+	threads.append(threading.Thread(target=getRoutes, args=(agencyId,)))
 	res = requests.get("")
