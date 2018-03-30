@@ -216,6 +216,15 @@ class track(object):
 			if str(val['id']) == str(busID):
 				return val["speed"]
 
+	def getRouteNameByBusID(self, busID):
+		for val in self.allInfo["currentInfo"]["vehicles"]:
+			if str(val['id']) == str(busID):
+				route = val["route_id"]
+		if route != None:
+			for val in self.allInfo['Routes']["routes"]:
+				if str(val["id"]) == str(route):
+					return val["long_name"]
+
 
 
 
