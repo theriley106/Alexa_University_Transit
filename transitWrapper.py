@@ -211,6 +211,11 @@ class track(object):
 			if str(val['id']) == str(busID):
 				return val["position"]
 
+	def getSpeedByBusID(self, busID):
+		for val in self.allInfo["currentInfo"]["vehicles"]:
+			if str(val['id']) == str(busID):
+				return val["speed"]
+
 
 
 
