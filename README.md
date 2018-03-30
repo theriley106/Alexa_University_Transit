@@ -20,6 +20,10 @@
 
 "When will the bus be here?"
 
+"How far away is the bus?"
+
+"Am I going to miss the bus?"
+
 ## Supported Schools
 
 - Adelphi University
