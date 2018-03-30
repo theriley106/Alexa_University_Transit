@@ -16,6 +16,10 @@
 
 "How fast is the {busName} going"
 
+"Is the bus running today?"
+
+"When will the bus be here?"
+
 ## Supported Schools
 
 - Adelphi University
