@@ -45,7 +45,7 @@ class track(object):
 		if self.stopName == None:
 			self.stopName = self.findClosestStop()['Data']
 		self.stopNumber = self.stopName['code']
-		self.notifcationCount = 0
+		self.notifcationCount = len(self.announcements)
 		self.notificationMessages = []
 		#self.checkForNewAnnouncements()
 		#self.getArrivalTimes()

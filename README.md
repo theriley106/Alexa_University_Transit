@@ -17,7 +17,6 @@ Announcements
 ## Transit Wrapper Functionality
 
 
-self.stopNumber = self.stopName['code']
 self.notifcationCount = 0
 self.notificationMessages = []
 #self.checkForNewAnnouncements()
