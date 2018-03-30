@@ -16,6 +16,45 @@ Announcements
 
 ## Transit Wrapper Functionality
 
+self.agencyNum = agencyNum
+self.agencyInfo = getAllAgencyInfo()
+self.getSpecificInfo = self.getSpecificInfo()
+if longitude == None and latitude == None and agencyNum != None:
+	#latitude, longitude = self.generateRandomStopLongLat(agencyNum)
+	self.generateRandomLongitude()
+else:
+	self.longitude = longitude
+	self.latitude = latitude
+self.busName = busName
+if self.busName == None:
+	self.busName = self.findBusName()
+self.listOfStops = []
+if self.agencyNum == None:
+	self.busNumber = convertBusNameToNumber(self.busName)
+else:
+	self.busNumber = self.agencyNum
+self.allInfo = interactions.grabAllInfo(self.busNumber)
+self.listOfRoutes = self.findRoutesFromLatLong()
+self.nearbyRoutes = self.findNearbyRoutes()
+self.activeRoutes = self.returnAllActiveRoutes()
+self.activeVehicles = self.allInfo["currentInfo"]["vehicles"]
+self.announcements = self.allInfo["Announcements"]['announcements']
+#the idea is that you pick one of these routes...
+self.routeNumber = self.chooseRoute()
+self.stopDatabase = self.findAllStops()
+self.stopName = stopName
+if self.stopName == None:
+	self.stopName = self.findClosestStop()['Data']
+self.stopNumber = self.stopName['code']
+self.notifcationCount = 0
+self.notificationMessages = []
+#self.checkForNewAnnouncements()
+#self.getArrivalTimes()
+
+```python
+self.agencyNum
+# This is the agency number that for the bus route```
+
 ## Sample Utterances
 
 "What busses are running right now?"
