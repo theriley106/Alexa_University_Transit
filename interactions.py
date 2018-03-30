@@ -40,5 +40,5 @@ if __name__ == '__main__':
 	a = grabAllInfo('128')
 	end = time.time()
 	print(end - start)
-	with open('data.json', 'w') as outfile:
+	with open('example.json', 'w') as outfile:
 		json.dump(a, outfile)
