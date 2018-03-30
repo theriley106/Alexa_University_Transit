@@ -92,6 +92,10 @@ self.stopName
 self.stopNumber
 # This returns info on either the closest stop or the default stop```
 
+```python
+self.stopNumber
+# This returns the code for either the closest stop or the default stop```
+
 ## Sample Utterances
 
 "What busses are running right now?"
