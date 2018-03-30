@@ -17,11 +17,6 @@ Announcements
 ## Transit Wrapper Functionality
 
 
-self.notifcationCount = 0
-self.notificationMessages = []
-#self.checkForNewAnnouncements()
-#self.getArrivalTimes()
-
 ```python
 self.agencyNum
 # This is the agency number that for the bus route```
