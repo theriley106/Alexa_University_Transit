@@ -2,17 +2,13 @@
 
 ## API Endpoints
 
-<h3>https://feeds.transloc.com/3/routes?agencies={agencyID}</h3>
-Routes
+https://feeds.transloc.com/3/routes?agencies={agencyID}
 
-<h3>https://feeds.transloc.com/3/vehicle_statuses?agencies={agencyID}</h3>
-Vehicle Status
+https://feeds.transloc.com/3/vehicle_statuses?agencies={agencyID}
 
-<h3>https://feeds.transloc.com/3/stops?agencies={agencyID}</h3>
-Stops
+https://feeds.transloc.com/3/stops?agencies={agencyID}
 
-<h3>https://feeds.transloc.com/3/announcements?agencies={agencyID}</h3>
-Announcements
+https://feeds.transloc.com/3/announcements?agencies={agencyID}
 
 ## Transit Wrapper Functionality
 
