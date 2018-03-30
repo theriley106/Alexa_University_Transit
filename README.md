@@ -79,6 +79,10 @@ self.listOfRoutes
 self.nearbyRoutes
 # This returns all routes where self.longitude and self.latitude are within the listed bounds```
 
+```python
+self.activeRoutes
+# This returns a list of python dictionaries containing info on all bus routes that are currently in service for this agencyID```
+
 ## Sample Utterances
 
 "What busses are running right now?"
