@@ -74,6 +74,13 @@ class track(object):
 				activeRoutes.append(var)
 		return activeRoutes
 
+	def announcementNum(self):
+		return len(self.allInfo["Announcements"]['announcements'])
+
+	def checkForNewAnnouncements(self):
+		for val in self.allInfo:
+			# Iterates through all the values in the file pulled from interactions
+
 
 	def checkForNewAnnouncements(self):
 		res = requests.get('https://{}.transloc.com/m/feeds/announcements'.format(self.busName), headers=headers)
