@@ -15,44 +15,53 @@ https://feeds.transloc.com/3/announcements?agencies={agencyID}
 
 ```python
 self.agencyNum
-# This is the agency number that for the bus route```
-
+# This is the agency number that for the bus route
+```
 
 ```python
 self.agencyInfo
-# This contains info on all Transloc bus routes```
+# This contains info on all Transloc bus routes
+```
 
 ```python
 self.getSpecificInfo
-# This contains info relevant to the inputted agency ID```
+# This contains info relevant to the inputted agency ID
+```
 
 ```python
 self.longitude
-# This refers to the inputted/randomly generated longitude```
+# This refers to the inputted/randomly generated longitude
+```
 
 ```python
 self.latitude
-# This refers to the inputted/randomly generated latitude```
+# This refers to the inputted/randomly generated latitude
+```
 
 ```python
 self.busName
-# This refers to the short name of the bus system.  Ie: yale, catbus, etc.```
+# This refers to the short name of the bus system.  Ie: yale, catbus, etc.
+```
 
 ```python
 self.busNumber
-# This ALSO refers to the agencyNum...```
+# This ALSO refers to the agencyNum...
+```
 
 ```python
 self.listOfStops
-# This refers to the list of stops used in this route.```
+# This refers to the list of stops used in this route.
+```
 
 ```python
 self.allInfo
-# This is a python dict containing all information about this bus system```
+# This is a python dict containing all information about this bus system
+```
 
 ```python
 self.listOfRoutes
-# This is a list of python dictionaries containing info on all routes in this bus system```
+# This is a list of python dictionaries containing info on all routes in this bus system
+```
 
 ```python
 self.nearbyRoutes
@@ -60,35 +69,43 @@ self.nearbyRoutes
 
 ```python
 self.activeRoutes
-# This returns a list of python dictionaries containing info on all bus routes that are currently in service for this agencyID```
+# This returns a list of python dictionaries containing info on all bus routes that are currently in service for this agencyID
+```
 
 ```python
 self.activeVehicles
-# This returns a list of python dictionaries containing info on all vehicles that are currently running```
+# This returns a list of python dictionaries containing info on all vehicles that are currently running
+```
 
 ```python
 self.announcements
-# Returns a list of strings containing current announcements for this bus system```
+# Returns a list of strings containing current announcements for this bus system
+```
 
 ```python
 self.stopDatabase
-# This returns a list of python dictionaries containing info for all stops in this bus system```
+# This returns a list of python dictionaries containing info for all stops in this bus system
+```
 
 ```python
 self.stopName
-# This returns info on either the closest stop or the default stop```
+# This returns info on either the closest stop or the default stop
+```
 
 ```python
 self.stopNumber
-# This returns info on either the closest stop or the default stop```
+# This returns info on either the closest stop or the default stop
+```
 
 ```python
 self.stopNumber
-# This returns the code for either the closest stop or the default stop```
+# This returns the code for either the closest stop or the default stop
+```
 
 ```python
 self.notifcationCount
-# Refers to the amount of unread notifications```
+# Refers to the amount of unread notifications
+```
 
 ## Sample Utterances
 
