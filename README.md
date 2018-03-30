@@ -65,7 +65,8 @@ self.listOfRoutes
 
 ```python
 self.nearbyRoutes
-# This returns all routes where self.longitude and self.latitude are within the listed bounds```
+# This returns all routes where self.longitude and self.latitude are within the listed bounds
+```
 
 ```python
 self.activeRoutes
@@ -105,6 +106,16 @@ self.stopNumber
 ```python
 self.notifcationCount
 # Refers to the amount of unread notifications
+```
+
+```python
+self.returnClosestStopsNames(n)
+# Returns the n nearest stops to self.longitude and self.latitude
+```
+
+```python
+self.generateRandomLongitude()
+# This will regenerate self.longitude and self.latitude
 ```
 
 ## Sample Utterances
