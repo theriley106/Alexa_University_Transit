@@ -36,6 +36,7 @@ class track(object):
 		self.listOfRoutes = self.findRoutesFromLatLong()
 		self.nearbyRoutes = self.findNearbyRoutes()
 		self.activeRoutes = self.returnAllActiveRoutes()
+		self.announcements = self.allInfo["Announcements"]['announcements']
 		#the idea is that you pick one of these routes...
 		self.routeNumber = self.chooseRoute()
 		self.stopDatabase = self.findAllStops()
@@ -75,12 +76,7 @@ class track(object):
 		return activeRoutes
 
 	def announcementNum(self):
-		return len(self.allInfo["Announcements"]['announcements'])
-
-	def checkForNewAnnouncements(self):
-		for val in self.allInfo:
-			# Iterates through all the values in the file pulled from interactions
-
+		return len(self.announcements)
 
 	def checkForNewAnnouncements(self):
 		res = requests.get('https://{}.transloc.com/m/feeds/announcements'.format(self.busName), headers=headers)
