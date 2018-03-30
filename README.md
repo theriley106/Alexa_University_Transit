@@ -88,6 +88,10 @@ self.announcements
 self.stopDatabase
 # This returns a list of python dictionaries containing info for all stops in this bus system```
 
+```python
+self.stopName
+# This returns info on either the closest stop or the default stop```
+
 ## Sample Utterances
 
 "What busses are running right now?"
