@@ -49,10 +49,6 @@ class track(object):
 		#self.checkForNewAnnouncements()
 		#self.getArrivalTimes()
 
-	def generateRandomStopLongLat(self, agencyNum):
-		res = self.allInfo["Stops"]
-		return random.choice(res['stops'])['position']
-
 	def getSpecificInfo(self):
 		# You should implement this val into everything eventually
 		for val in self.agencyInfo:
