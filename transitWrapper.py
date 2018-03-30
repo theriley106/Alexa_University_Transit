@@ -232,9 +232,9 @@ class track(object):
 			if str(val['id']) == str(busID):
 				stop = val["current_stop_id"]
 		if stop != None:
-			for val in self.allInfo['Routes']["routes"]:
-				if str(val["id"]) == str(route):
-					return val["long_name"]
+			for val in self.allInfo['Stops']["stops"]:
+				if str(val["id"]) == str(stop):
+					return val["name"]
 
 
 
