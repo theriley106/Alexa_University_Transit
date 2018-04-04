@@ -131,7 +131,18 @@ self.getArrivalTimes()
 
 ## Sample Utterances
 
-"What busses are running right now?"
+### "What busses are running right now?"
+
+```python
+latitude = extractLat()
+longitude = extractLong()
+agencyNum = extractLong()
+session = transitWrapper.track(agencyNum=agencyNum, latitude=latitude, longitude=longitude)
+routes = session.activeRoutes
+```
+
+
+a = transitWrapper.track()
 
 "Where is the nearest stop?"
 
