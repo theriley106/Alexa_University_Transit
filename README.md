@@ -138,15 +138,20 @@ latitude = extractLat()
 longitude = extractLong()
 agencyNum = extractLong()
 session = transitWrapper.track(agencyNum=agencyNum, latitude=latitude, longitude=longitude)
-routes = session.activeRoutes
+return session.activeRoutes
 ```
-
-
-a = transitWrapper.track()
 
 "Where is the nearest stop?"
 
-"How far is the bus"
+```python
+latitude = extractLat()
+longitude = extractLong()
+agencyNum = extractLong()
+session = transitWrapper.track(agencyNum=agencyNum, latitude=latitude, longitude=longitude)
+return session.findClosestStop()
+```
+
+"How far away is the bus"
 
 "What time will the bus be here?"
 
