@@ -243,6 +243,9 @@ class track(object):
 
 
 
+def timestampDiff(timestamp):
+	return int(timestamp) - time.time()
+
 def convertBusNameToNumber(busName):
 	for val in getAllAgencyInfo():
 		if val['name'] == busName:
