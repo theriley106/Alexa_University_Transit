@@ -16,6 +16,10 @@ https://feeds.transloc.com/3/announcements?agencies={agencyID}
 
 https://feeds.transloc.com/3/segments?agencies={agencyID}
 
+https://feeds.transloc.com/3/arrivals?agencies=639&stop_id=4176714
+
+^ timestamp is the next arrival time
+
 ## Encoded Polyline Algorithm Format
 
 
