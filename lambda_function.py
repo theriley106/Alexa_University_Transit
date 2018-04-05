@@ -23,6 +23,39 @@ def lambda_handler(event, context):
 		key = ""
 		deviceID = "Test"
 	if event["request"]["type"] == "LaunchRequest":
+		e = longLat(deviceID, key)
+		return {
+		"version": "1.0",
+		"sessionAttributes": {},
+		"response": {
+            "outputSpeech": {
+                "type": "PlainText",
+                "text": "Test"
+            },
+            "directives": [{
+                "type": "Display.RenderTemplate",
+                "template": {
+                    "type": "BodyTemplate1",
+                    "token": "T123",
+                    "backButton": "HIDDEN",
+                    "backgroundImage": {
+                        "contentDescription": "StormPhoto",
+                        "sources": [{
+                            "url": "https://s3.amazonaws.com/hurricane-data/hurricaneBackground.png"
+                        }]
+                    },
+                    "title": "Hurricane Center",
+                    "textContent": {
+                        "primaryText": {
+                            "text": "{} - {}".format(str(e[0]), str(e[1])),
+                            "type": "PlainText"
+                        }
+                    }
+                }
+            }],
+            "shouldEndSession": False
+        }}
+
 		return on_launch(event["request"], event["session"])
 	elif event["request"]["type"] == "IntentRequest":
 		return on_intent(event["request"], event["session"], deviceID=deviceID, apiKEY=key)
@@ -64,6 +97,15 @@ def devInfo():
 				  }
 		}
 
+def longLat(deviceID, apiKey):
+	headers = {'Host': 'api.amazonalexa.com', 'Accept': 'application/json', 'Authorization': "Bearer {}".format(apiKey)}
+	print deviceID
+	print apiKey
+	url = 'https://api.amazonalexa.com/v1/devices/{}/settings/address'.format(deviceID)
+	res = requests.get(url, headers=headers).json()
+
+	print res
+	return convertLatLong(res["addressLine1"] + " " + res["city"] + " " + res['stateOrRegion'])
 
 def nearbyBusses(deviceID, apiKEY):
 	headers = {'Host': 'api.amazonalexa.com', 'Accept': 'application/json', 'Authorization': "Bearer {}".format(apiKEY)}
@@ -199,6 +241,37 @@ def get_help_response():
 
 
 def get_welcome_response():
+	return {
+		"version": "1.0",
+		"sessionAttributes": {},
+		"response": {
+            "outputSpeech": {
+                "type": "PlainText",
+                "text": "Test"
+            },
+            "directives": [{
+                "type": "Display.RenderTemplate",
+                "template": {
+                    "type": "BodyTemplate1",
+                    "token": "T123",
+                    "backButton": "HIDDEN",
+                    "backgroundImage": {
+                        "contentDescription": "StormPhoto",
+                        "sources": [{
+                            "url": "https://s3.amazonaws.com/hurricane-data/hurricaneBackground.png"
+                        }]
+                    },
+                    "title": "Hurricane Center",
+                    "textContent": {
+                        "primaryText": {
+                            "text": "cardInfo",
+                            "type": "PlainText"
+                        }
+                    }
+                }
+            }],
+            "shouldEndSession": False
+        }}
 	session_attributes = {}
 	card_title = "Transit Tracker"
 	speech_output = "Thanks for checking out the clemson university bus tracker by Christopher Lambert.  You can ask me to find the closest bus stop or you can find time estimates for the Clemson University bus system"
