@@ -14,6 +14,17 @@ https://feeds.transloc.com/3/stops?agencies={agencyID}
 
 https://feeds.transloc.com/3/announcements?agencies={agencyID}
 
+https://feeds.transloc.com/3/segments?agencies={agencyID}
+
+## Encoded Polyline Algorithm Format
+
+
+Encoded Polyline Algorithm Format
+
+https://developers.yale.edu/documentation/CampusLife/transloc
+
+https://feeds.transloc.com/3/segments?agencies=639
+
 ## Transit Wrapper Functionality
 
 

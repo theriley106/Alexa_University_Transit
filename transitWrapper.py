@@ -308,7 +308,7 @@ if __name__ == "__main__":
 	CLEMSON_LAT, CLEMSON_LONG = 34.654340, -82.858492
 	#CLEMSON_LAT, CLEMSON_LONG = 34.7189472, -82.3064414
 	YALE_LAT, YALE_LONG = 41.312529, -72.922985'''
-	a = track(agencyNum=convertBusNameToNumber('yale'))
+	a = track(agencyNum=convertBusNameToNumber('catbus'))
 	for var in a.activeRoutes:
 		print var
 

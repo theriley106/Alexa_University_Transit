@@ -38,7 +38,7 @@ def grabAllInfo(agencyId):
 
 if __name__ == '__main__':
 	start = time.time()
-	a = grabAllInfo('128')
+	a = grabAllInfo('639')
 	end = time.time()
 	print(end - start)
 	with open('example.json', 'w') as outfile:
