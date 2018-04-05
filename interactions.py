@@ -26,11 +26,17 @@ def grabAllInfo(agencyId):
 	def getStopInfo(agencyId):
 		url = GET_STOP_INFO.format(agencyId)
 		tempDict["Stops"] = requests.get(url).json()
+
+	def getArrivals(agencyId):
+		url = GET_ARRIVALS.format(agencyId)
+		tempDict["Arrivals"] = requests.get(url).json()
+
 	threads = []
 	threads.append(threading.Thread(target=getStopInfo, args=(agencyId,)))
 	threads.append(threading.Thread(target=getStatus, args=(agencyId,)))
 	threads.append(threading.Thread(target=getRoutes, args=(agencyId,)))
 	threads.append(threading.Thread(target=getAnnouncements, args=(agencyId,)))
+	threads.append(threading.Thread(target=getArrivals, args=(agencyId,)))
 	for thread in threads:
 		thread.start()
 	for thread in threads:
