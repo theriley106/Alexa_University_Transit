@@ -1,3 +1,24 @@
+import requests
+from geopy.geocoders import GoogleV3
+geolocator = GoogleV3(api_key='AIzaSyDBZre20-q9hSY0BFXTqmiZr5-orJSuwr0')
+
+def extractLatLong(event, context):
+	try:
+		deviceID = event["context"]["System"]['device']['deviceId']
+	except:
+		deviceID = "Test"
+	try:
+		key = event["context"]["System"]['apiAccessToken']
+	except:
+		key = ""
+		deviceID = "Test"
+	# This returns a dictionary object
+	headers = {'Host': 'api.amazonalexa.com', 'Accept': 'application/json', 'Authorization': "Bearer {}".format(key)}
+	url = 'https://api.amazonalexa.com/v1/devices/{}/settings/address'.format(deviceID)
+	res = requests.get(url, headers=headers).json()
+	return convertLatLong(res["addressLine1"] + " " + res["city"] + " " + res['stateOrRegion'])
+
+
 def returnTestDisplay(e=['test', 'test']):
 	return {
 		"version": "1.0",

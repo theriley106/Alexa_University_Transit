@@ -12,12 +12,7 @@ def convertLatLong(address):
 	a = geolocator.geocode(address)
 	return (a.latitude, a.longitude)
 
-
 def lambda_handler(event, context):
-	try:
-		deviceID = event["context"]["System"]['device']['deviceId']
-	except:
-		deviceID = "Test"
 	try:
 		key = event["context"]["System"]['apiAccessToken']
 	except:
