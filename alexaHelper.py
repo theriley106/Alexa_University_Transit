@@ -1,3 +1,36 @@
+def returnTestDisplay(e=['test', 'test']):
+	return {
+		"version": "1.0",
+		"sessionAttributes": {},
+		"response": {
+            "outputSpeech": {
+                "type": "PlainText",
+                "text": "Test"
+            },
+            "directives": [{
+                "type": "Display.RenderTemplate",
+                "template": {
+                    "type": "BodyTemplate1",
+                    "token": "T123",
+                    "backButton": "HIDDEN",
+                    "backgroundImage": {
+                        "contentDescription": "StormPhoto",
+                        "sources": [{
+                            "url": "https://s3.amazonaws.com/hurricane-data/hurricaneBackground.png"
+                        }]
+                    },
+                    "title": "Hurricane Center",
+                    "textContent": {
+                        "primaryText": {
+                            "text": "{} - {}".format(str(e[0]), str(e[1])),
+                            "type": "PlainText"
+                        }
+                    }
+                }
+            }],
+            "shouldEndSession": False
+        }}
+
 def returnSpeech(speech, endSession=True):
 	return {
 		"version": "1.0",
@@ -10,7 +43,6 @@ def returnSpeech(speech, endSession=True):
 			"shouldEndSession": endSession
 		  }
 		}
-
 
 def devInfo():
 	text = "created in December 2017 by Christopher Lambert.  This alexa skill is completely open sourced.  Please check out the skill on Git Hub or contact me for more information"

@@ -3,6 +3,7 @@ import re
 from geopy.geocoders import GoogleV3
 import requests
 from geopy.distance import vincenty
+import alexaHelper
 geolocator = GoogleV3(api_key='AIzaSyDBZre20-q9hSY0BFXTqmiZr5-orJSuwr0')
 import transitWrapper
 
@@ -24,38 +25,8 @@ def lambda_handler(event, context):
 		deviceID = "Test"
 	if event["request"]["type"] == "LaunchRequest":
 		e = longLat(deviceID, key)
-		return {
-		"version": "1.0",
-		"sessionAttributes": {},
-		"response": {
-            "outputSpeech": {
-                "type": "PlainText",
-                "text": "Test"
-            },
-            "directives": [{
-                "type": "Display.RenderTemplate",
-                "template": {
-                    "type": "BodyTemplate1",
-                    "token": "T123",
-                    "backButton": "HIDDEN",
-                    "backgroundImage": {
-                        "contentDescription": "StormPhoto",
-                        "sources": [{
-                            "url": "https://s3.amazonaws.com/hurricane-data/hurricaneBackground.png"
-                        }]
-                    },
-                    "title": "Hurricane Center",
-                    "textContent": {
-                        "primaryText": {
-                            "text": "{} - {}".format(str(e[0]), str(e[1])),
-                            "type": "PlainText"
-                        }
-                    }
-                }
-            }],
-            "shouldEndSession": False
-        }}
 
+		return alexaHelper.returnTestDisplay(e)
 		return on_launch(event["request"], event["session"])
 	elif event["request"]["type"] == "IntentRequest":
 		return on_intent(event["request"], event["session"], deviceID=deviceID, apiKEY=key)
