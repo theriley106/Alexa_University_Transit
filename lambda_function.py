@@ -7,21 +7,12 @@ import alexaHelper
 geolocator = GoogleV3(api_key='AIzaSyDBZre20-q9hSY0BFXTqmiZr5-orJSuwr0')
 import transitWrapper
 
-
-def convertLatLong(address):
-	a = geolocator.geocode(address)
-	return (a.latitude, a.longitude)
-
 def lambda_handler(event, context):
-	try:
-		key = event["context"]["System"]['apiAccessToken']
-	except:
-		key = ""
-		deviceID = "Test"
-	if event["request"]["type"] == "LaunchRequest":
-		e = longLat(deviceID, key)
 
-		return alexaHelper.returnTestDisplay(e)
+	if event["request"]["type"] == "LaunchRequest":
+		locationInfo = alexaHelper.extractLatLong(event, context)
+
+		return alexaHelper.returnTestDisplay([locationInfo['Longitude'], locationInfo["Latitude"]])
 		return on_launch(event["request"], event["session"])
 	elif event["request"]["type"] == "IntentRequest":
 		return on_intent(event["request"], event["session"], deviceID=deviceID, apiKEY=key)
