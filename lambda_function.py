@@ -36,38 +36,6 @@ def lambda_handler(event, context):
 def on_launch(launch_request, session):
 	return get_welcome_response()
 
-
-
-
-'''def devInfo():
-	text = "created in December 2017 by Christopher Lambert.  This alexa skill is completely open sourced.  Please check out the skill on Git Hub or contact me for more information"
-	return {
-		"version": "1.0",
-		"sessionAttributes": {},
-		"response": {
-		"outputSpeech": {
-		"type": "PlainText",
-		"text": text
-			},
-			"shouldEndSession": True
-		  }
-		}'''
-
-def devInfo():
-	text = "created in December 2017 by Christopher Lambert.  This alexa skill is completely open sourced.  Please check out the skill on Git Hub or contact me for more information"
-	return {
-		"version": "1.0",
-		"sessionAttributes": {},
-		"response": {
-			"outputSpeech":
-			{
-			      "type": "SSML",
-			      "ssml": "<speak><audio src='https://s3.amazonaws.com/nucilohackathonbucket/finalfile.mp3'/></speak>"
-	    			},
-					"shouldEndSession": True
-				  }
-		}
-
 def longLat(deviceID, apiKey):
 	headers = {'Host': 'api.amazonalexa.com', 'Accept': 'application/json', 'Authorization': "Bearer {}".format(apiKey)}
 	print deviceID
@@ -187,7 +155,7 @@ def on_intent(intent_request, session, deviceID=None, apiKEY=None):
 	elif intent_name == 'test_Environment_Clemson_Area_Transit':
 		return testEnvironment()
 	elif intent_name == 'aboutDev':
-		return devInfo()
+		return alexaHelper.devInfo()
 	elif intent_name == "AMAZON.HelpIntent":
 		return get_help_response()
 	elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
