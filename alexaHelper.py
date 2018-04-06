@@ -44,8 +44,9 @@ def returnSpeech(speech, endSession=True):
 		  }
 		}
 
-def devInfo():
-	text = "created in December 2017 by Christopher Lambert.  This alexa skill is completely open sourced.  Please check out the skill on Git Hub or contact me for more information"
+def devInfo(text=None):
+	if text == None:
+		text = "created in December 2017 by Christopher Lambert.  This alexa skill is completely open sourced.  Please check out the skill on Git Hub or contact me for more information"
 	return returnSpeech(text)
 
 def get_welcome_response(skillName, initialSpeech, repeatSpeech):
