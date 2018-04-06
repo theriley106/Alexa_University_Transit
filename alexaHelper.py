@@ -2,6 +2,10 @@ import requests
 from geopy.geocoders import GoogleV3
 geolocator = GoogleV3(api_key='AIzaSyDBZre20-q9hSY0BFXTqmiZr5-orJSuwr0')
 
+def convertLatLong(address):
+	a = geolocator.geocode(address)
+	return {"Latitude": a.latitude, "Longitude": a.longitude}
+
 def extractLatLong(event, context):
 	try:
 		deviceID = event["context"]["System"]['device']['deviceId']
