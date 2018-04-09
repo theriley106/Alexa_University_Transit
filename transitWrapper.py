@@ -24,14 +24,22 @@ class track(object):
 		self.getSpecificInfo = self.getSpecificInfo()
 		# This only contains info about the specified agency ID
 		if longitude == None and latitude == None and agencyNum != None:
-			#latitude, longitude = self.generateRandomStopLongLat(agencyNum)
+			# This means thatthe user did not specify location, or that the location is not specified
 			self.generateRandomLongitude()
+			# Generates a random lat long between those bounds
+			# Ideally this should be only used for tests
 		else:
 			self.longitude = longitude
+			# values are specified
 			self.latitude = latitude
+			# values are specified
+
+		##### This is probably redundant
 		self.busName = busName
 		if self.busName == None:
 			self.busName = self.findBusName()
+		#########
+
 		self.listOfStops = []
 		if self.agencyNum == None:
 			self.busNumber = convertBusNameToNumber(self.busName)
