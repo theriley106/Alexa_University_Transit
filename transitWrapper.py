@@ -39,8 +39,8 @@ class track(object):
 		if self.busName == None:
 			self.busName = self.findBusName()
 		# This is the short_name for the bus system. ie: catbus
-
 		self.listOfStops = []
+		# This contains all stops for this agency num
 		self.allInfo = interactions.grabAllInfo(self.agencyNum)
 		self.listOfRoutes = self.findRoutesFromLatLong()
 		self.nearbyRoutes = self.findNearbyRoutes()
