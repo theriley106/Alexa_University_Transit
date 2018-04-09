@@ -9,27 +9,33 @@ GET_STOP_INFO = "https://feeds.transloc.com/3/stops?&agencies={0}"
 GET_ANNOUNCEMENTS = "https://feeds.transloc.com/3/announcements?agencies={0}"
 GET_ARRIVALS = "https://feeds.transloc.com/3/arrivals?agencies={0}"
 
+def downloadURL(url):
+	for i in range(2):
+		res = requests.get(url, timeout=3)
+		if res != None:
+			return res
+
 def grabAllInfo(agencyId):
 	tempDict = {}
 	def getAnnouncements(agencyId):
 		url = GET_ANNOUNCEMENTS.format(agencyId)
-		tempDict["Announcements"] = requests.get(url).json()
+		tempDict["Announcements"] = downloadURL(url).json()
 
 	def getRoutes(agencyId):
 		url = GET_ALL_ROUTES.format(agencyId)
-		tempDict["Routes"] = requests.get(url).json()
+		tempDict["Routes"] = downloadURL(url).json()
 
 	def getStatus(agencyId):
 		url = GET_CURRENT_INFO.format(agencyId)
-		tempDict["currentInfo"] = requests.get(url).json()
+		tempDict["currentInfo"] = downloadURL(url).json()
 
 	def getStopInfo(agencyId):
 		url = GET_STOP_INFO.format(agencyId)
-		tempDict["Stops"] = requests.get(url).json()
+		tempDict["Stops"] = downloadURL(url).json()
 
 	def getArrivals(agencyId):
 		url = GET_ARRIVALS.format(agencyId)
-		tempDict["Arrivals"] = requests.get(url).json()
+		tempDict["Arrivals"] = downloadURL(url).json()
 
 	threads = []
 	threads.append(threading.Thread(target=getStopInfo, args=(agencyId,)))
