@@ -104,6 +104,10 @@ class track(object):
 					return busses['name']
 			else:
 				if checkInBounds(self.latitude, self.longitude, busses['bounds']) == True and self.agencyNum == busses["id"]:
+					#self.agencyID = busses
+					if self.agencyNum == None:
+						# This runs if agency num isn't defined
+						self.agencyNum = busses['id']
 					return busses['name']
 
 	def findAllStops(self):
