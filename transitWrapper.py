@@ -44,7 +44,8 @@ class track(object):
 		self.allInfo = interactions.grabAllInfo(self.agencyNum)
 		'''self.allInfo contains announcements, routes, ride status,
 		stop info, segments, and arrivals...'''
-		self.listOfRoutes = self.findRoutesFromLatLong()
+		self.listOfRoutes = self.allInfo["Routes"]
+		# This contains all routes in this agency
 		self.nearbyRoutes = self.findNearbyRoutes()
 		self.activeRoutes = self.returnAllActiveRoutes()
 		self.activeVehicles = self.allInfo["currentInfo"]["vehicles"]
@@ -173,20 +174,6 @@ class track(object):
 			self.listOfStops.append({"Data": var, "Name": var['name'], "Distance": geopy.distance.vincenty(coords1, coords2).feet})
 		self.listOfStops = sorted(self.listOfStops, key=lambda k: k['Distance'])
 		return self.listOfStops[0]
-
-	def findRoutesFromLatLong(self):
-		listOfRoutes = []
-		res = self.allInfo["Routes"]
-		try:
-			for val in res["routes"]:
-				try:
-					if len(val['long_name']) > 1:
-						listOfRoutes.append(val)
-				except:
-					pass
-		except:
-			print("No routes available")
-		return listOfRoutes
 
 	def findNearbyRoutes(self):
 		routeList = []
