@@ -34,11 +34,11 @@ class track(object):
 			self.latitude = latitude
 			# values are specified
 
-		##### This is probably redundant
+		######################################3
 		self.busName = busName
 		if self.busName == None:
 			self.busName = self.findBusName()
-		#########
+		# This is the short_name for the bus system. ie: catbus
 
 		self.listOfStops = []
 		if self.agencyNum == None:
