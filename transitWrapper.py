@@ -18,8 +18,11 @@ class track(object):
 		'''self.stopName should go to an sql database
 		containing default stop values'''
 		self.agencyNum = agencyNum
+		# This number identifies the bus system ID
 		self.agencyInfo = getAllAgencyInfo()
+		# This contains info on every bus system ID used by transloc
 		self.getSpecificInfo = self.getSpecificInfo()
+		# This only contains info about the specified agency ID
 		if longitude == None and latitude == None and agencyNum != None:
 			#latitude, longitude = self.generateRandomStopLongLat(agencyNum)
 			self.generateRandomLongitude()
