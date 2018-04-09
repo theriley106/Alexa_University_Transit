@@ -42,6 +42,8 @@ class track(object):
 		self.listOfStops = []
 		# This contains all stops for this agency num
 		self.allInfo = interactions.grabAllInfo(self.agencyNum)
+		'''self.allInfo contains announcements, routes, ride status,
+		stop info, segments, and arrivals...'''
 		self.listOfRoutes = self.findRoutesFromLatLong()
 		self.nearbyRoutes = self.findNearbyRoutes()
 		self.activeRoutes = self.returnAllActiveRoutes()
