@@ -15,6 +15,8 @@ class track(object):
 	#placeholder bot class - will eventually merge a ton of stuff into this
 	def __init__(self, latitude=None, longitude=None, routeName=None, busName=None, stopName=None, agencyNum=None):
 		#print("Lat: {} Long: {}".format(latitude, longitude))
+		'''self.stopName should go to an sql database
+		containing default stop values'''
 		self.agencyNum = agencyNum
 		self.agencyInfo = getAllAgencyInfo()
 		self.getSpecificInfo = self.getSpecificInfo()
