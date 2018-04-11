@@ -8,6 +8,7 @@ import geopy.distance
 import random
 import time
 import interactions
+import display
 
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 
@@ -228,7 +229,7 @@ class track(object):
 			if str(val['id']) == str(busID):
 				return val["segment_id"]
 
-	def getPartialRoute(self, busID):
+	def getPartialRouteByBusID(self, busID):
 		try:
 			segmentID = self.getSegmentIDByBusID(busID)
 			for var in self.segmentInfo:
@@ -345,4 +346,8 @@ if __name__ == "__main__":
 	a = track(agencyNum=convertBusNameToNumber('catbus'))
 	for var in a.activeRoutes:
 		print var
+	route = a.getPartialRouteByBusID("4012759")
+	location = list(a.getPositionByBusID("4012759"))[::-1]
+	print route
+	print display.genMap(location, segment=route)
 
