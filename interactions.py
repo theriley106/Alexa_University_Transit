@@ -8,6 +8,8 @@ GET_CURRENT_INFO = "https://feeds.transloc.com/3/vehicle_statuses?agencies={0}"
 GET_STOP_INFO = "https://feeds.transloc.com/3/stops?&agencies={0}"
 GET_ANNOUNCEMENTS = "https://feeds.transloc.com/3/announcements?agencies={0}"
 GET_ARRIVALS = "https://feeds.transloc.com/3/arrivals?agencies={0}"
+GET_SEGMENTS = "https://feeds.transloc.com/3/segments?agencies={0}"
+
 
 def downloadURL(url):
 	for i in range(2):
@@ -24,6 +26,10 @@ def grabAllInfo(agencyId):
 	def getRoutes(agencyId):
 		url = GET_ALL_ROUTES.format(agencyId)
 		tempDict["Routes"] = downloadURL(url).json()
+
+	def getSegments(agencyId):
+		url = GET_SEGMENTS.format(agencyId)
+		tempDict["Segments"] = downloadURL(url).json()
 
 	def getStatus(agencyId):
 		url = GET_CURRENT_INFO.format(agencyId)
@@ -43,6 +49,7 @@ def grabAllInfo(agencyId):
 	threads.append(threading.Thread(target=getRoutes, args=(agencyId,)))
 	threads.append(threading.Thread(target=getAnnouncements, args=(agencyId,)))
 	threads.append(threading.Thread(target=getArrivals, args=(agencyId,)))
+	threads.append(threading.Thread(target=getSegments, args=(agencyId,)))
 	for thread in threads:
 		thread.start()
 	for thread in threads:
