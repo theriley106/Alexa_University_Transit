@@ -51,6 +51,7 @@ class track(object):
 		self.activeVehicles = self.allInfo["currentInfo"]["vehicles"]
 		self.announcements = self.allInfo["Announcements"]['announcements']
 		#the idea is that you pick one of these routes...
+		self.segmentInfo = self.allInfo["Segments"]['segments']
 		self.routeNumber = self.chooseRoute()
 		self.stopDatabase = self.findAllStops()
 		self.stopName = stopName
@@ -221,6 +222,20 @@ class track(object):
 		for val in self.allInfo["currentInfo"]["vehicles"]:
 			if str(val['id']) == str(busID):
 				return val["position"]
+
+	def getSegmentIDByBusID(self, busID):
+		for val in self.allInfo["currentInfo"]["vehicles"]:
+			if str(val['id']) == str(busID):
+				return val["segment_id"]
+
+	def getPartialRoute(self, busID):
+		try:
+			segmentID = self.getSegmentIDByBusID(busID)
+			for var in self.segmentInfo:
+				if segmentID == var['id']:
+					return var["points"]
+		except:
+			return None
 
 	def getSpeedByBusID(self, busID):
 		for val in self.allInfo["currentInfo"]["vehicles"]:
