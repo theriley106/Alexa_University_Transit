@@ -1,7 +1,7 @@
 import requests
 from geopy.geocoders import GoogleV3
 geolocator = GoogleV3(api_key='AIzaSyDBZre20-q9hSY0BFXTqmiZr5-orJSuwr0')
-
+import display
 def convertLatLong(address):
 	a = geolocator.geocode(address)
 	return {"Latitude": a.latitude, "Longitude": a.longitude}
@@ -41,7 +41,7 @@ def returnTestDisplay(e=['test', 'test']):
                     "backgroundImage": {
                         "contentDescription": "StormPhoto",
                         "sources": [{
-                            "url": "https://s3.amazonaws.com/hurricane-data/hurricaneBackground.png"
+                            "url": display.genMap(tuple(e))
                         }]
                     },
                     "title": "Hurricane Center",
