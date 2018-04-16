@@ -188,6 +188,19 @@ session = transitWrapper.track(agencyNum=agencyNum, latitude=latitude, longitude
 return (len(session.returnAllActiveRoutes()) != 0)
 ```
 
+"Is {budID} running today?"
+
+```python
+latitude = extractLat()
+longitude = extractLong()
+agencyNum = extractLong()
+session = transitWrapper.track(agencyNum=agencyNum, latitude=latitude, longitude=longitude)
+for val in session.returnAllActiveRoutes():
+	if {busID} in str(val["id"]):
+		return True
+return False
+```
+
 "What time will the bus be here?"
 
 "Set a default bus"
