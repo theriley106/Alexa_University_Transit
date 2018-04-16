@@ -61,7 +61,7 @@ class track(object):
 		self.stopNumber = self.stopName['code']
 		self.notifcationCount = len(self.announcements)
 		#self.checkForNewAnnouncements()
-		#self.getArrivalTimes()
+		#print self.getArrivalTimes()
 
 	def getSpecificInfo(self):
 		# You should implement this val into everything eventually

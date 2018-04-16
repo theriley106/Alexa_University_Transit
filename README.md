@@ -170,6 +170,14 @@ return session.findClosestStop()
 
 "How far away is the bus"
 
+```python
+latitude = extractLat()
+longitude = extractLong()
+agencyNum = extractLong()
+session = transitWrapper.track(agencyNum=agencyNum, latitude=latitude, longitude=longitude)
+return session.getArrivalTimes()["Arrivals"]
+```
+
 "What time will the bus be here?"
 
 "Set a default bus"
