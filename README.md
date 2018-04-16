@@ -178,6 +178,16 @@ session = transitWrapper.track(agencyNum=agencyNum, latitude=latitude, longitude
 return session.getArrivalTimes()["Arrivals"]
 ```
 
+"Is the bus running today?"
+
+```python
+latitude = extractLat()
+longitude = extractLong()
+agencyNum = extractLong()
+session = transitWrapper.track(agencyNum=agencyNum, latitude=latitude, longitude=longitude)
+return (len(session.returnAllActiveRoutes()) != 0)
+```
+
 "What time will the bus be here?"
 
 "Set a default bus"
@@ -186,7 +196,9 @@ return session.getArrivalTimes()["Arrivals"]
 
 "How fast is the {busName} going"
 
-"Is the bus running today?"
+
+
+
 
 "When will the bus be here?"
 
