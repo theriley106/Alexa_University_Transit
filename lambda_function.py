@@ -9,14 +9,13 @@ import transitWrapper
 import display
 
 def lambda_handler(event, context):
-
 	if event["request"]["type"] == "LaunchRequest":
 		locationInfo = alexaHelper.extractLatLong(event, context)
 
 		return alexaHelper.returnTestDisplay([locationInfo['Longitude'], locationInfo["Latitude"]])
 		return on_launch(event["request"], event["session"])
 	elif event["request"]["type"] == "IntentRequest":
-		return on_intent(event["request"], event["session"], deviceID=deviceID, apiKEY=key)
+		return on_intent(event["request"], event["session"])
 	else:
 		handle_session_end_request()
 
