@@ -33,16 +33,8 @@ def longLat(deviceID, apiKey):
 	print res
 	return convertLatLong(res["addressLine1"] + " " + res["city"] + " " + res['stateOrRegion'])
 
-def nearbyBusses(deviceID, apiKEY):
-	headers = {'Host': 'api.amazonalexa.com', 'Accept': 'application/json', 'Authorization': "Bearer {}".format(apiKEY)}
-	url = 'https://api.amazonalexa.com/v1/devices/{}/settings/address'.format(deviceID)
-	res = requests.get(url, headers=headers).json()
-	try:
-		myAddress = convertLatLong(res["addressLine1"] + " " + res["city"] + " " + res['stateOrRegion'])
-	except Exception as exp:
-		print exp
-		myAddress = None
-	a = transitWrapper.track(myAddress[0], myAddress[1])
+def nearbyBusses(locationInfo):
+	a = transitWrapper.track(agencyNum=639, longitude=locationInfo["Longitude"], latitude=locationInfo["Latitude"])
 	routesNearMe = []
 	activeRoutes = a.returnNearbyActiveRoutes()
 	for i, val in enumerate(activeRoutes):
@@ -127,7 +119,7 @@ def on_intent(intent_request, session, deviceID=None, apiKEY=None, locationInfo=
 	intent = intent_request["intent"]
 	intent_name = intent_request["intent"]["name"]
 	if intent_name == "active_Busses_Clemson_Area_Transit":
-		return nearbyBusses(deviceID, apiKEY)
+		return nearbyBusses(locationInfo)
 	elif intent_name == 'distance_To_Stop_Clemson_Area_Transit':
 		return nearbyStops(deviceID, apiKEY)
 	elif intent_name == 'findStop':
