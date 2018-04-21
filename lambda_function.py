@@ -15,7 +15,8 @@ def lambda_handler(event, context):
 		return alexaHelper.returnTestDisplay([locationInfo['Longitude'], locationInfo["Latitude"]])
 		return on_launch(event["request"], event["session"])
 	elif event["request"]["type"] == "IntentRequest":
-		return on_intent(event["request"], event["session"])
+		locationInfo = alexaHelper.extractLatLong(event, context)
+		return on_intent(event["request"], event["session"], locationInfo=locationInfo)
 	else:
 		handle_session_end_request()
 
@@ -96,29 +97,20 @@ def convertVal(feet):
 	else:
 		return "{} Miles".format(int(feet) / 5280)
 
-def nearbyStops(deviceID, apiKEY):
-	if deviceID != "Test":
+def nearbyStops(locationInfo):
+	#return returnSpeech("{} {}".format(locationInfo["Latitude"], locationInfo["Longitude"]))
+	try:
+		a = transitWrapper.track(agencyNum=639, longitude=locationInfo["Longitude"], latitude=locationInfo["Latitude"])
+		val = a.findClosestStop()
+		distance = val["Distance"]
 		try:
-			headers = {'Host': 'api.amazonalexa.com', 'Accept': 'application/json', 'Authorization': "Bearer {}".format(apiKEY)}
-			url = 'https://api.amazonalexa.com/v1/devices/{}/settings/address'.format(deviceID)
-			res = requests.get(url, headers=headers).json()
-			try:
-				myAddress = convertLatLong(res["addressLine1"] + " " + res["city"] + " " + res['stateOrRegion'])
-			except Exception as exp:
-				print exp
-				myAddress = None
-			a = transitWrapper.track(myAddress[0], myAddress[1])
-			val = a.findClosestStop()
-			distance = val["Distance"]
+			name = val['Name']
+			text = "It looks like there is a stop called {} that is {} from you.".format(name, convertVal(distance))
 		except:
-			distance = 50001
-	else:
-		distance = 50001
-	if distance < 50000:
-		name = val['Name']
-		text = "It looks like there is a stop called {} that is {} from you.".format(name, convertVal(distance))
-	else:
-		text = "It looks like no nearby stops can be found.  This is usually caused by misconfigured location settings in the Alexa Skills app.  Please check that your address is correct by going to the settings menu in the Alexa Skills application.  If problems persist, you can set default Stop IDs by saying. set default stop. followed by the route ID found on the transloc website"
+			text = "It looks like no nearby stops can be found.  This is usually caused by misconfigured location settings in the Alexa Skills app.  Please check that your address is correct by going to the settings menu in the Alexa Skills application.  If problems persist, you can set default Stop IDs by saying. set default stop. followed by the route ID found on the transloc website"
+	except:
+		text = 'function failed'
+	return returnSpeech(text)
 	return {
 					"version": "1.0",
 					"sessionAttributes": {},
@@ -131,13 +123,16 @@ def nearbyStops(deviceID, apiKEY):
 					  }
 					}
 
-def on_intent(intent_request, session, deviceID=None, apiKEY=None):
+def on_intent(intent_request, session, deviceID=None, apiKEY=None, locationInfo=None):
 	intent = intent_request["intent"]
 	intent_name = intent_request["intent"]["name"]
 	if intent_name == "active_Busses_Clemson_Area_Transit":
 		return nearbyBusses(deviceID, apiKEY)
 	elif intent_name == 'distance_To_Stop_Clemson_Area_Transit':
 		return nearbyStops(deviceID, apiKEY)
+	elif intent_name == 'findStop':
+		# This finds the nearest bus stop
+		return nearbyStops(locationInfo)
 	elif intent_name == 'test_Environment_Clemson_Area_Transit':
 		return testEnvironment()
 	elif intent_name == 'aboutDev':
