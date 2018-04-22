@@ -30,7 +30,7 @@ def returnTestDisplay(e=['test', 'test']):
 		"response": {
             "outputSpeech": {
                 "type": "PlainText",
-                "text": "Test"
+                "text": "Thanks for checking out the clemson university bus tracker by Christopher Lambert.  You can ask me to find the closest bus stop or you can find time estimates for the Clemson University bus system"
             },
             "directives": [{
                 "type": "Display.RenderTemplate",
