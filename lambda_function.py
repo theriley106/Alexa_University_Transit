@@ -11,7 +11,7 @@ import display
 def getAgencyID(slotValue):
 	allValues = transitWrapper.getAllAgencyInfo()
 	for val in allValues:
-		if (slotValue == val["short_name"]) or (slotValue == val["long_name"]) or (slotValue == val["name"]):
+		if (slotValue == val["short_name"].strip().lower()) or (slotValue == val["long_name"].strip().lower()) or (slotValue == val["name"].strip().lower()):
 			return val["id"]
 
 def lambda_handler(event, context):
