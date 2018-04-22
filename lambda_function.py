@@ -134,7 +134,8 @@ def on_intent(intent_request, session, deviceID=None, apiKEY=None, locationInfo=
 		return nearbyStops(locationInfo)
 	elif intent_name == 'selectSchool':
 		school = intent_request["intent"]['slots']['schoolName']['resolutions']['resolutionsPerAuthority'][0]["values"][0]['value']['name']
-		return returnSpeech("Are you sure you want to change the school to {}?".format(school))
+		agencyID = getAgencyID(school)
+		return returnSpeech("Are you sure you want to change the school to {}?  The new Agency ID will be {}.".format(school, agencyID))
 	elif intent_name == 'test_Environment_Clemson_Area_Transit':
 		return testEnvironment()
 	elif intent_name == 'aboutDev':
