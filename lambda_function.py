@@ -8,6 +8,12 @@ geolocator = GoogleV3(api_key='AIzaSyDBZre20-q9hSY0BFXTqmiZr5-orJSuwr0')
 import transitWrapper
 import display
 
+def getAgencyID(slotValue):
+	allValues = transitWrapper.getAllAgencyInfo()
+	for val in allValues:
+		if (slotValue == val["short_name"]) or (slotValue == val["long_name"]) or (slotValue == val["name"]):
+			return val["id"]
+
 def lambda_handler(event, context):
 	if event["request"]["type"] == "LaunchRequest":
 		locationInfo = alexaHelper.extractLatLong(event, context)
