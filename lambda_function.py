@@ -119,6 +119,7 @@ def on_intent(intent_request, session, deviceID=None, apiKEY=None, locationInfo=
 	intent = intent_request["intent"]
 	intent_name = intent_request["intent"]["name"]
 	if intent_name == "active_Busses_Clemson_Area_Transit":
+		# This returns info on nearby active busses
 		return nearbyBusses(locationInfo)
 	elif intent_name == 'distance_To_Stop_Clemson_Area_Transit':
 		return nearbyStops(deviceID, apiKEY)
@@ -162,7 +163,7 @@ def get_welcome_response():
 		"response": {
             "outputSpeech": {
                 "type": "PlainText",
-                "text": "Test"
+                "text": "Thanks for checking out the clemson university bus tracker by Christopher Lambert.  You can ask me to find the closest bus stop or you can find time estimates for the Clemson University bus system"
             },
             "directives": [{
                 "type": "Display.RenderTemplate",
