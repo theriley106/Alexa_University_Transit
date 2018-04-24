@@ -3,7 +3,7 @@
 
 
 def genMap(point1, point2=None, segment=None):
-	url = "https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/pin-s-bus+9ed4bd{}".format(str(tuple(point1)).replace(" ", ""))
+	url = "https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/static/pin-s-bus+9ed4bd{}".format(str(tuple(point1)).replace(" ", ""))
 	if point2 != None:
 		url = url + ",pin-s-b+000{}".format(str(tuple(point2)).replace(" ", ""))
 	if segment != None:
