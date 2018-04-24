@@ -28,10 +28,6 @@ def returnTestDisplay(e=['test', 'test']):
 		"version": "1.0",
 		"sessionAttributes": {},
 		"response": {
-            "outputSpeech": {
-                "type": "PlainText",
-                "text": "Thanks for checking out the clemson university bus tracker by Christopher Lambert.  You can ask me to find the closest bus stop or you can find time estimates for the Clemson University bus system"
-            },
             "directives": [{
                 "type": "Display.RenderTemplate",
                 "template": {
@@ -44,7 +40,7 @@ def returnTestDisplay(e=['test', 'test']):
                             "url": display.genMap(tuple(e))
                         }]
                     },
-                    "title": "Hurricane Center",
+                    "title": display.genMap(tuple(e)).replace("https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/static/", ""),
                     "textContent": {
                         "primaryText": {
                             "text": "{} - {}".format(str(e[0]), str(e[1])),
@@ -53,6 +49,11 @@ def returnTestDisplay(e=['test', 'test']):
                     }
                 }
             }],
+
+            "outputSpeech": {
+                "type": "PlainText",
+                "text": "Thanks for checking out the clemson university bus tracker by Christopher Lambert.  You can ask me to find the closest bus stop or you can find time estimates for the Clemson University bus system"
+            },
             "shouldEndSession": False
         }}
 
