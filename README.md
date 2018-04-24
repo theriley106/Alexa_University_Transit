@@ -2,6 +2,20 @@
 
 [![N|Solid](static/pic1.jpg)](#)
 
+## Slot Names
+
+distance_To_Stop_Clemson_Area_Transit
+
+active_Busses_Clemson_Area_Transit
+
+findBus
+
+test_Environment_Clemson_Area_Transit
+
+findStop
+
+selectSchool
+
 ## API Endpoints
 
 <a href="http://192.168.2.106:8000">
