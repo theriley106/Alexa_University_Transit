@@ -2,7 +2,7 @@
 
 [![N|Solid](static/pic1.jpg)](#)
 
-## Slot Names
+## Intent Names
 
 distance_To_Stop_Clemson_Area_Transit
 
