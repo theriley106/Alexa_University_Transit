@@ -40,7 +40,7 @@ def returnTestDisplay(e=['test', 'test']):
                             "url": display.genMap(tuple(e))
                         }]
                     },
-                    "title": display.genMap(tuple(e)).replace("https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/static/", ""),
+                    "title": "Hurricane Center",
                     "textContent": {
                         "primaryText": {
                             "text": "{} - {}".format(str(e[0]), str(e[1])),
